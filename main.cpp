@@ -46,11 +46,21 @@ void studento_duomenu_gavimas(vector<studentas> &Studentai){
     }
 }
 void studento_duomenu_printinimas(vector<studentas> Studentai){
+    string skaiciavimo_budas;
+    cout << "Norite apskaiciuoti Vidurki ar Mediana?" << endl;
+    cin >> skaiciavimo_budas;
+
     cout << setw(13) << left << "Pavarde" << setw(12) << left << "Vardas"<< setw(12) << left << "Galutinis" << endl;
     cout << "----------------------------------" << endl;
-    for (int i = 0; i < Studentai.size(); i ++){
+    if (skaiciavimo_budas == "Mediana"){
+        for (int i = 0; i < Studentai.size(); i ++){
+        cout << setw(13) << left << Studentai[i].pavarde << setw(12) << left << Studentai[i].vardas << setw(12) << left << fixed << setprecision(2) << (studento_medianos_skaiciavimas(Studentai[i].pazymiai, Studentai[i].egzamino_pazymys)) << endl;
+    } 
+    }else if (skaiciavimo_budas == "Vidurki"){
+        for (int i = 0; i < Studentai.size(); i ++){
         cout << setw(13) << left << Studentai[i].pavarde << setw(12) << left << Studentai[i].vardas << setw(12) << left << fixed << setprecision(2) << (studento_vidurkio_skaiciavimas(Studentai[i].pazymiai, Studentai[i].egzamino_pazymys)) << endl;
     } 
+    }
 }
 double studento_vidurkio_skaiciavimas(vector<int> pazymiai, int egzamino_pazymys){
     int pazymiu_suma = 0;
