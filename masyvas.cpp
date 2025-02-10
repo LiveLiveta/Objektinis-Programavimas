@@ -1,26 +1,26 @@
 #include "pagalbines.h"
-    const int PRADINIS_DYDIS = 10;
-    int studentu_indeksai = -1;
-    int studentu_kiekis = 0;
-    int studentu_masyvo_dydis = PRADINIS_DYDIS;
+const int PRADINIS_DYDIS = 10;
+int studentu_indeksai = -1;
+int studentu_kiekis = 0;
+int studentu_masyvo_dydis = PRADINIS_DYDIS;
 
-    struct Studentas {
-        string pavarde;
-        string vardas;
-        int* pazymiai = new int[PRADINIS_DYDIS];
-        int pazymiu_kiekis = 0;
-        int pazymiu_masyvo_dydis = PRADINIS_DYDIS;
-        int egzamino_pazymys;
-    };
+struct Studentas {
+    string pavarde;
+    string vardas;
+    int* pazymiai = new int[PRADINIS_DYDIS];
+    int pazymiu_kiekis = 0;
+    int pazymiu_masyvo_dydis = PRADINIS_DYDIS;
+    int egzamino_pazymys;
+};
 
-    Studentas* studentai = new Studentas[studentu_masyvo_dydis];
+Studentas* studentai = new Studentas[studentu_masyvo_dydis];
 
-    void studento_duomenu_gavimas(Studentas *studentai);
-    void studento_duomenu_printinimas(Studentas *studentai);
-    double studento_vidurkio_skaiciavimas(int* pazymiai, int pazymiu_kiekis, int egzamino_pazymys);
-    double studento_medianos_skaiciavimas(int* pazymiai, int pazymiu_kiekis, int egzamino_pazymys);
-    int* praplesk_masyvas(int* dabartinis_masyvas, int& masyvo_dydis);
-    Studentas* praplesk_masyvas(Studentas* dabartinis_masyvas, int& masyvo_dydis);
+void studento_duomenu_gavimas(Studentas *studentai);
+void studento_duomenu_printinimas(Studentas *studentai);
+double studento_vidurkio_skaiciavimas(int* pazymiai, int pazymiu_kiekis, int egzamino_pazymys);
+double studento_medianos_skaiciavimas(int* pazymiai, int pazymiu_kiekis, int egzamino_pazymys);
+int* praplesk_masyvas(int* dabartinis_masyvas, int& masyvo_dydis);
+Studentas* praplesk_masyvas(Studentas* dabartinis_masyvas, int& masyvo_dydis);
 
 int main(){
     studento_duomenu_gavimas(studentai);
@@ -31,7 +31,7 @@ int main(){
 void studento_duomenu_gavimas(Studentas *studentai){
     while(true){
     Studentas laikinas_studentas;
-    cout << "Ivesite savo pavarde ir varda (Jei norite baigti irasyma rasykite 'n'.) :" << endl;
+    cout << "Ivesite studento pavarde ir varda (Jei norite baigti irasyma rasykite 'n'.) :" << endl;
     cin >> laikinas_studentas.pavarde;
     if (laikinas_studentas.pavarde == "n"){
         return;
@@ -45,6 +45,7 @@ void studento_duomenu_gavimas(Studentas *studentai){
         int pazymio_indeksas = -1;
 
         while (pazymys != -2){
+            cout << "Pazymys: ";
             cin >> pazymys;
             if (pazymys == -2){
                 break;
@@ -53,6 +54,7 @@ void studento_duomenu_gavimas(Studentas *studentai){
                 cin.clear(); 
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Iveskite skaiciu nuo 1 iki 10! (jei surasete visus pazymius iveskite -2)" << endl;
+                cout << "Pazymys: "; 
                 cin >> pazymys;
                 if (pazymys == -2){
                     break;
@@ -70,11 +72,13 @@ void studento_duomenu_gavimas(Studentas *studentai){
         
     cout << "Iveskite egzamino pazymi: " <<endl;
     int egzamino_pazymys;
+    cout << "Egzamino pazymys: ";
     cin >> egzamino_pazymys;
-     while (egzamino_pazymys <= 0 || egzamino_pazymys > 10 || cin.fail()){
+    while (egzamino_pazymys <= 0 || egzamino_pazymys > 10 || cin.fail()){
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Iveskite skaiciu nuo 1 iki 10!" << endl;
+                cout << "Egzamino pazymys: ";
                 cin >> egzamino_pazymys; 
             }
     laikinas_studentas.egzamino_pazymys = egzamino_pazymys;
@@ -145,13 +149,12 @@ int* praplesk_masyvas(int* dabartinis_masyvas, int& masyvo_dydis){
     delete[] dabartinis_masyvas;
     return praplestas_masyvas;
 }
-Studentas* praplesk_masyvas(Studentas* dabartinis_masyvas, int& masyvo_dydis){ //& kad galeciau keisti kintamaji globaliai (masyvo_dydi). tada tiesiog ziuri i tapati adresa.
+Studentas* praplesk_masyvas(Studentas* dabartinis_masyvas, int& masyvo_dydis){ //& kad galeciau keisti kintamaji globaliai (masyvo_dydi). tada tiesiog ziuri i tapati adresa
     masyvo_dydis *= 2;
     Studentas* praplestas_masyvas = new Studentas[masyvo_dydis];
     for (int i = 0; i < masyvo_dydis; i++){
         praplestas_masyvas[i] = dabartinis_masyvas[i];
     }
-
 
     delete[] dabartinis_masyvas;
     return praplestas_masyvas;

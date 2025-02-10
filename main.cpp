@@ -23,7 +23,7 @@ int main(){
 void studento_duomenu_gavimas(vector<Studentas> &studentai){
     while(true){
     Studentas laikinas_studentas;
-    cout << "Ivesite savo pavarde ir varda (Jei norite baigti irasyma rasykite 'n'.) :" << endl;
+    cout << "Ivesite studento pavarde ir varda (Jei norite baigti irasyma rasykite 'n'.) :" << endl;
     cin >> laikinas_studentas.pavarde;
     if (laikinas_studentas.pavarde == "n"){
         return;
@@ -33,6 +33,7 @@ void studento_duomenu_gavimas(vector<Studentas> &studentai){
     cout << "Iveskite pazymius (jei surasete visus pazymius iveskite -2): "<<endl;
         int pazymys = 0;
         while (pazymys != -2){
+            cout << "Pazymys: ";
             cin >> pazymys;
             if (pazymys == -2){
                 break;
@@ -41,6 +42,7 @@ void studento_duomenu_gavimas(vector<Studentas> &studentai){
                 cin.clear(); 
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Iveskite skaiciu nuo 1 iki 10! (jei surasete visus pazymius iveskite -2)" << endl;
+                cout << "Pazymys: ";
                 cin >> pazymys;
                 if (pazymys == -2){
                     break;
@@ -51,11 +53,13 @@ void studento_duomenu_gavimas(vector<Studentas> &studentai){
         
     cout << "Iveskite egzamino pazymi: " <<endl;
     int egzamino_pazymys;
+    cout << "Egzamino pazymys: ";
     cin >> egzamino_pazymys;
      while (egzamino_pazymys <= 0 || egzamino_pazymys > 10 || cin.fail()){
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "Iveskite skaiciu nuo 1 iki 10!" << endl;
+        cout << "Egzamino pazymys: ";
         cin >> egzamino_pazymys; 
             }
     laikinas_studentas.egzamino_pazymys = egzamino_pazymys;
