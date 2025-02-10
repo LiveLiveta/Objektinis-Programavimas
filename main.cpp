@@ -29,22 +29,26 @@ void studento_duomenu_gavimas(vector<studentas> &Studentai){
         return;
     } else{
     cin >> laikinas_studentas.vardas;
-    cout << "Iveskite kiek pazymiu turi studentas: " <<endl;
-    int pazymiu_kiekis;
-    cin >> pazymiu_kiekis;
-    cout << "Iveskite pazymius: "<<endl;
 
-    for(int i = 0;  i < pazymiu_kiekis; i++){
-        int pazymys;
-        cin >> pazymys;
+    cout << "Iveskite pazymius (jei surasete visus pazymius iveskite -2): "<<endl;
+        int pazymys = 0;
+        while (pazymys != -2){
+            cin >> pazymys;
+            if (pazymys == -2){
+                break;
+            }
             while (pazymys <= 0 || pazymys > 10 || cin.fail()){
-                cout << "Iveskite skaiciu nuo 1 iki 10!" << endl;
+                cout << "Iveskite skaiciu nuo 1 iki 10! (jei surasete visus pazymius iveskite -2)" << endl;
                 cin >> pazymys;
                 cin.clear(); 
                 cin.ignore();
+                if (pazymys == -2){
+                    break;
+                }
             }
-        laikinas_studentas.pazymiai.push_back(pazymys);
-    }
+            laikinas_studentas.pazymiai.push_back(pazymys);
+        }
+        
     cout << "Iveskite egzamino pazymi: " <<endl;
     int egzamino_pazymys;
     cin >> egzamino_pazymys;
@@ -55,7 +59,6 @@ void studento_duomenu_gavimas(vector<studentas> &Studentai){
                 cin.ignore();
             }
     laikinas_studentas.egzamino_pazymys = egzamino_pazymys;
-
     Studentai.push_back(laikinas_studentas);
     }
     }
