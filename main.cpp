@@ -37,10 +37,21 @@ void studento_duomenu_gavimas(vector<studentas> &Studentai){
     for(int i = 0;  i < pazymiu_kiekis; i++){
         int pazymys;
         cin >> pazymys;
+            while (pazymys <= 0 || pazymys > 10){
+                cout << "Iveskite skaiciu nuo 1 iki 10!" << endl;
+                cin >> pazymys; 
+            }
         laikinas_studentas.pazymiai.push_back(pazymys);
     }
     cout << "Iveskite egzamino pazymi: " <<endl;
-    cin >> laikinas_studentas.egzamino_pazymys;
+    int egzamino_pazymys;
+    cin >> egzamino_pazymys;
+     while (egzamino_pazymys <= 0 || egzamino_pazymys > 10){
+                cout << "Iveskite skaiciu nuo 1 iki 10!" << endl;
+                cin >> egzamino_pazymys; 
+            }
+    laikinas_studentas.egzamino_pazymys = egzamino_pazymys;
+
     Studentai.push_back(laikinas_studentas);
     }
     }
