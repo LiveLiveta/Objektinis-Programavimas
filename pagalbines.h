@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <algorithm>
+#include <limits>
 
 using std:: cout;
 using std:: cin;
@@ -16,3 +17,5 @@ using std:: right;
 using std:: setprecision;
 using std:: fixed;
 using std:: sort;
+using std:: numeric_limits;
+using std:: streamsize;
