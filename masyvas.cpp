@@ -19,7 +19,8 @@
     void studento_duomenu_printinimas(Studentas *studentai);
     double studento_vidurkio_skaiciavimas(int* pazymiai, int pazymiu_kiekis, int egzamino_pazymys);
     double studento_medianos_skaiciavimas(int* pazymiai, int pazymiu_kiekis, int egzamino_pazymys);
-    int* praplesk_masyvas(int* dabartinis_masyvas, int masyvo_dydis);
+    int* praplesk_masyvas(int* dabartinis_masyvas, int& masyvo_dydis);
+    Studentas* praplesk_masyvas(Studentas* dabartinis_masyvas, int& masyvo_dydis);
 
 int main(){
     studento_duomenu_gavimas(studentai);
@@ -42,7 +43,6 @@ void studento_duomenu_gavimas(Studentas *studentai){
     cout << "Iveskite pazymius (jei surasete visus pazymius iveskite -2): "<<endl;
         int pazymys = 0; //tam kad patekti i while cikla.
         int pazymio_indeksas = -1;
-        int pazymiu_kiekis = 0;
 
         while (pazymys != -2){
             cin >> pazymys;
@@ -59,7 +59,12 @@ void studento_duomenu_gavimas(Studentas *studentai){
                 }
             }
             pazymio_indeksas += 1;
-            pazymiu_kiekis += 1;
+            laikinas_studentas.pazymiu_kiekis += 1;
+
+            if(laikinas_studentas.pazymiu_kiekis == laikinas_studentas.pazymiu_masyvo_dydis){
+                laikinas_studentas.pazymiai = praplesk_masyvas(laikinas_studentas.pazymiai, laikinas_studentas.pazymiu_masyvo_dydis);
+            }
+
             laikinas_studentas.pazymiai[pazymio_indeksas] = pazymys;
         }
         
@@ -73,7 +78,11 @@ void studento_duomenu_gavimas(Studentas *studentai){
                 cin >> egzamino_pazymys; 
             }
     laikinas_studentas.egzamino_pazymys = egzamino_pazymys;
-    laikinas_studentas.pazymiu_kiekis = pazymiu_kiekis;
+    laikinas_studentas.pazymiu_kiekis = laikinas_studentas.pazymiu_kiekis;
+
+    if (studentu_kiekis == studentu_masyvo_dydis){
+        studentai = praplesk_masyvas(studentai, studentu_masyvo_dydis);
+    }
     studentai[studentu_indeksai] = laikinas_studentas;
     }
 
@@ -98,11 +107,18 @@ void studento_duomenu_printinimas(Studentas *studentai){
 double studento_vidurkio_skaiciavimas(int* pazymiai, int pazymiu_kiekis, int egzamino_pazymys){
     int pazymiu_suma = 0;
 
-
     for (int i = 0; i < pazymiu_kiekis; i++){
         pazymiu_suma += pazymiai[i];
     }
-    double pazymiu_vidurkis = pazymiu_suma / pazymiu_kiekis;
+
+    double pazymiu_vidurkis;
+
+    if (pazymiu_kiekis == 0){
+        pazymiu_vidurkis = 0;
+    }else{
+        pazymiu_vidurkis = pazymiu_suma / pazymiu_kiekis;
+    }
+
     double vidurkis = 0.4 * pazymiu_vidurkis + 0.6 * egzamino_pazymys;
     return vidurkis;
 }
@@ -110,7 +126,7 @@ double studento_medianos_skaiciavimas(int* pazymiai, int pazymiu_kiekis, int egz
 
     sort(pazymiai, pazymiai+pazymiu_kiekis);
     double mediana;
-    if(pazymiu_kiekis%2 == 0){
+    if(pazymiu_kiekis%2 == 0 && pazymiu_kiekis != 0){
         mediana = (pazymiai[pazymiu_kiekis/2] + pazymiai[pazymiu_kiekis/2 -1]) / 2;
     } else{
         mediana = mediana = (pazymiai[pazymiu_kiekis/2]);
@@ -119,11 +135,23 @@ double studento_medianos_skaiciavimas(int* pazymiai, int pazymiu_kiekis, int egz
     double vidurkis = 0.4 * mediana + 0.6 * egzamino_pazymys;
     return vidurkis;
 }
-int* praplesk_masyvas(int* dabartinis_masyvas, int masyvo_dydis){
-    int* praplestas_masyvas = new int[masyvo_dydis*2];
+int* praplesk_masyvas(int* dabartinis_masyvas, int& masyvo_dydis){
+    masyvo_dydis *= 2;
+    int* praplestas_masyvas = new int[masyvo_dydis];
     for (int i = 0; i < masyvo_dydis; i++){
         praplestas_masyvas[i] = dabartinis_masyvas[i];
     }
+
+    delete[] dabartinis_masyvas;
+    return praplestas_masyvas;
+}
+Studentas* praplesk_masyvas(Studentas* dabartinis_masyvas, int& masyvo_dydis){ //& kad galeciau keisti kintamaji globaliai (masyvo_dydi). tada tiesiog ziuri i tapati adresa.
+    masyvo_dydis *= 2;
+    Studentas* praplestas_masyvas = new Studentas[masyvo_dydis];
+    for (int i = 0; i < masyvo_dydis; i++){
+        praplestas_masyvas[i] = dabartinis_masyvas[i];
+    }
+
 
     delete[] dabartinis_masyvas;
     return praplestas_masyvas;
