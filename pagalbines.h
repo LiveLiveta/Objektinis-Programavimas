@@ -5,6 +5,8 @@
 #include <string>
 #include <algorithm>
 #include <limits>
+#include <stdlib.h>
+#include <ctime>
 
 using std:: cout;
 using std:: cin;
@@ -19,3 +21,6 @@ using std:: fixed;
 using std:: sort;
 using std:: numeric_limits;
 using std:: streamsize;
+using std:: srand;
+using std:: rand;
+using std:: time;
