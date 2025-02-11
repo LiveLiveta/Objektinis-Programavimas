@@ -21,6 +21,8 @@ double studento_vidurkio_skaiciavimas(int* pazymiai, int pazymiu_kiekis, int egz
 double studento_medianos_skaiciavimas(int* pazymiai, int pazymiu_kiekis, int egzamino_pazymys);
 int* praplesk_masyvas(int* dabartinis_masyvas, int& masyvo_dydis);
 Studentas* praplesk_masyvas(Studentas* dabartinis_masyvas, int& masyvo_dydis);
+void studento_pazymiu_surasymas(Studentas &laikinas_studentas);
+void studento_egzamino_pazymio_gavimas(Studentas &laikinas_studentas);
 
 int main(){
     studento_duomenu_gavimas(studentai);
@@ -40,49 +42,51 @@ void studento_duomenu_gavimas(Studentas *studentai){
     studentu_kiekis += 1;
     cin >> laikinas_studentas.vardas;
 
-    cout << "Iveskite pazymius (jei surasete visus pazymius iveskite -2): "<<endl;
-        int pazymys = 0; //tam kad patekti i while cikla.
-        int pazymio_indeksas = -1;
+    studento_pazymiu_surasymas(laikinas_studentas);
+    studento_egzamino_pazymio_gavimas(laikinas_studentas);
+    // cout << "Iveskite pazymius (jei surasete visus pazymius iveskite -2): "<<endl;
+    //     int pazymys = 0; //tam kad patekti i while cikla.
+    //     int pazymio_indeksas = -1;
 
-        while (pazymys != -2){
-            cout << "Pazymys: ";
-            cin >> pazymys;
-            if (pazymys == -2){
-                break;
-            }
-            while (pazymys <= 0 || pazymys > 10 || cin.fail()){
-                cin.clear(); 
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Iveskite skaiciu nuo 1 iki 10! (jei surasete visus pazymius iveskite -2)" << endl;
-                cout << "Pazymys: "; 
-                cin >> pazymys;
-                if (pazymys == -2){
-                    break;
-                }
-            }
-            pazymio_indeksas += 1;
-            laikinas_studentas.pazymiu_kiekis += 1;
+    //     while (pazymys != -2){
+    //         cout << "Pazymys: ";
+    //         cin >> pazymys;
+    //         if (pazymys == -2){
+    //             break;
+    //         }
+    //         while (pazymys <= 0 || pazymys > 10 || cin.fail()){
+    //             cin.clear(); 
+    //             cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    //             cout << "Iveskite skaiciu nuo 1 iki 10! (jei surasete visus pazymius iveskite -2)" << endl;
+    //             cout << "Pazymys: "; 
+    //             cin >> pazymys;
+    //             if (pazymys == -2){
+    //                 break;
+    //             }
+    //         }
+    //         pazymio_indeksas += 1;
+    //         laikinas_studentas.pazymiu_kiekis += 1;
 
-            if(laikinas_studentas.pazymiu_kiekis == laikinas_studentas.pazymiu_masyvo_dydis){
-                laikinas_studentas.pazymiai = praplesk_masyvas(laikinas_studentas.pazymiai, laikinas_studentas.pazymiu_masyvo_dydis);
-            }
+    //         if(laikinas_studentas.pazymiu_kiekis == laikinas_studentas.pazymiu_masyvo_dydis){
+    //             laikinas_studentas.pazymiai = praplesk_masyvas(laikinas_studentas.pazymiai, laikinas_studentas.pazymiu_masyvo_dydis);
+    //         }
 
-            laikinas_studentas.pazymiai[pazymio_indeksas] = pazymys;
-        }
-        
-    cout << "Iveskite egzamino pazymi: " <<endl;
-    int egzamino_pazymys;
-    cout << "Egzamino pazymys: ";
-    cin >> egzamino_pazymys;
-    while (egzamino_pazymys <= 0 || egzamino_pazymys > 10 || cin.fail()){
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Iveskite skaiciu nuo 1 iki 10!" << endl;
-                cout << "Egzamino pazymys: ";
-                cin >> egzamino_pazymys; 
-            }
-    laikinas_studentas.egzamino_pazymys = egzamino_pazymys;
-    laikinas_studentas.pazymiu_kiekis = laikinas_studentas.pazymiu_kiekis;
+    //         laikinas_studentas.pazymiai[pazymio_indeksas] = pazymys;
+    //     }
+     ////////////////   
+    // cout << "Iveskite egzamino pazymi: " <<endl;
+    // int egzamino_pazymys;
+    // cout << "Egzamino pazymys: ";
+    // cin >> egzamino_pazymys;
+    // while (egzamino_pazymys <= 0 || egzamino_pazymys > 10 || cin.fail()){
+    //             cin.clear();
+    //             cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    //             cout << "Iveskite skaiciu nuo 1 iki 10!" << endl;
+    //             cout << "Egzamino pazymys: ";
+    //             cin >> egzamino_pazymys; 
+    //         }
+    // laikinas_studentas.egzamino_pazymys = egzamino_pazymys;
+    // laikinas_studentas.pazymiu_kiekis = laikinas_studentas.pazymiu_kiekis;
 
     if (studentu_kiekis == studentu_masyvo_dydis){
         studentai = praplesk_masyvas(studentai, studentu_masyvo_dydis);
@@ -120,7 +124,7 @@ double studento_vidurkio_skaiciavimas(int* pazymiai, int pazymiu_kiekis, int egz
     if (pazymiu_kiekis == 0){
         pazymiu_vidurkis = 0;
     }else{
-        pazymiu_vidurkis = pazymiu_suma / pazymiu_kiekis;
+        pazymiu_vidurkis = pazymiu_suma *1.0 / pazymiu_kiekis;
     }
 
     double vidurkis = 0.4 * pazymiu_vidurkis + 0.6 * egzamino_pazymys;
@@ -131,7 +135,7 @@ double studento_medianos_skaiciavimas(int* pazymiai, int pazymiu_kiekis, int egz
     sort(pazymiai, pazymiai+pazymiu_kiekis);
     double mediana;
     if(pazymiu_kiekis%2 == 0 && pazymiu_kiekis != 0){
-        mediana = (pazymiai[pazymiu_kiekis/2] + pazymiai[pazymiu_kiekis/2 -1]) / 2;
+        mediana = (pazymiai[pazymiu_kiekis/2] + pazymiai[pazymiu_kiekis/2 -1]) / 2.0;
     } else{
         mediana = mediana = (pazymiai[pazymiu_kiekis/2]);
     }
@@ -158,4 +162,50 @@ Studentas* praplesk_masyvas(Studentas* dabartinis_masyvas, int& masyvo_dydis){ /
 
     delete[] dabartinis_masyvas;
     return praplestas_masyvas;
+}
+void studento_pazymiu_surasymas(Studentas &laikinas_studentas){
+    cout << "Iveskite pazymius (jei surasete visus pazymius iveskite -2): "<<endl;
+        int pazymys = 0; //tam kad patekti i while cikla.
+        int pazymio_indeksas = -1;
+
+        while (pazymys != -2){
+            cout << "Pazymys: ";
+            cin >> pazymys;
+            if (pazymys == -2){
+                break;
+            }
+            while (pazymys <= 0 || pazymys > 10 || cin.fail()){
+                cin.clear(); 
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Iveskite skaiciu nuo 1 iki 10! (jei surasete visus pazymius iveskite -2)" << endl;
+                cout << "Pazymys: "; 
+                cin >> pazymys;
+                if (pazymys == -2){
+                    break;
+                }
+            }
+            pazymio_indeksas += 1;
+            laikinas_studentas.pazymiu_kiekis += 1;
+
+            if(laikinas_studentas.pazymiu_kiekis == laikinas_studentas.pazymiu_masyvo_dydis){
+                laikinas_studentas.pazymiai = praplesk_masyvas(laikinas_studentas.pazymiai, laikinas_studentas.pazymiu_masyvo_dydis);
+            }
+
+            laikinas_studentas.pazymiai[pazymio_indeksas] = pazymys;
+        }
+}
+void studento_egzamino_pazymio_gavimas(Studentas &laikinas_studentas){
+    cout << "Iveskite egzamino pazymi: " <<endl;
+    int egzamino_pazymys;
+    cout << "Egzamino pazymys: ";
+    cin >> egzamino_pazymys;
+    while (egzamino_pazymys <= 0 || egzamino_pazymys > 10 || cin.fail()){
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Iveskite skaiciu nuo 1 iki 10!" << endl;
+                cout << "Egzamino pazymys: ";
+                cin >> egzamino_pazymys; 
+            }
+    laikinas_studentas.egzamino_pazymys = egzamino_pazymys;
+    laikinas_studentas.pazymiu_kiekis = laikinas_studentas.pazymiu_kiekis;
 }
