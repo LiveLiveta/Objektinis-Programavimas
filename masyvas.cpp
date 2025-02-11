@@ -43,6 +43,12 @@ void viskas_generuojama_atsitiktinai();
 int main(){
     studento_duomenu_gavimas(studentai);
     studento_duomenu_printinimas(studentai);
+
+    for (int i = 0; i < studentu_kiekis; i++){
+        delete[] studentai[i].pazymiai;
+    }
+    delete[] studentai;
+    
     return 0;
 }
 
@@ -241,7 +247,7 @@ int gauk_kiek_pazimiu_sugeneruoti(){
     cout << "pazymiu kiekis: ";
     cin >> pazymiu_kiekis;
 
-    while (cin.fail()){
+    while (pazymiu_kiekis < 0 || cin.fail()){
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "Iveskite skaiciu kiek pazymiu norite sugeneruoti!" << endl;
