@@ -7,6 +7,8 @@
 #include <limits>
 #include <stdlib.h>
 #include <ctime>
+#include <fstream>
+#include <sstream>
 
 using std:: cout;
 using std:: cin;
@@ -24,3 +26,7 @@ using std:: streamsize;
 using std:: srand;
 using std:: rand;
 using std:: time;
+using std:: ifstream;
+using std:: ofstream;
+using std:: getline;
+using std:: stringstream;

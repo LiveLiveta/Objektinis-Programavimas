@@ -1,0 +1,4 @@
+Pavarde   Vardas   ND1  ND2  ND3  ND4  ND5  Egzaminas
+Laurute   Laura    8    9    10   6    10   9
+Nikute    Nika     7    10   8    5    4    6
+Aistyte   Aiste    10   10   6    7    4    8 

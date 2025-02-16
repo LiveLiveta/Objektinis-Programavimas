@@ -14,7 +14,7 @@ struct Studentas {
 
 vector<Studentas> studentai;
 
-void studento_duomenu_gavimas(vector<Studentas> &studentai);
+void studento_duomenu_gavimas();
 void studento_duomenu_printinimas(vector<Studentas> &studentai);
 
 double studento_vidurkio_skaiciavimas(vector<int> pazymiai, int egzamino_pazymys);
@@ -24,6 +24,9 @@ void studento_vardo_ir_pavardes_gavimas(Studentas &laikinas_studentas);
 void studento_pazymiu_gavimas(Studentas &laikinas_studentas);
 void studento_egzamino_pazymio_gavimas(Studentas &laikinas_studentas);
 
+void studento_duomenu_skaitymas_is_failo();
+void duomenu_is_failo_susirasymas(string& failo_pavadinimas);
+bool tikrinimas_ar_pavyko_atidaryti_faila(string& failo_pavadinimas);
 
 void studento_pazymiu_ir_egzaminu_generavimas(Studentas &laikinas_studentas);
 int gauk_kiek_pazimiu_sugeneruoti();
@@ -37,12 +40,12 @@ void viskas_generuojama_atsitiktinai();
 
 
 int main(){
-    studento_duomenu_gavimas(studentai);
+    studento_duomenu_gavimas();
     studento_duomenu_printinimas(studentai);
     return 0;
 }
 
-void studento_duomenu_gavimas(vector<Studentas> &studentai){
+void studento_duomenu_gavimas(){
      while(true){
         int  duomenu_surasymo_pasirinkimas = studento_duomenu_surasymo_pasirinkimas();
         if (duomenu_surasymo_pasirinkimas == 1){
@@ -52,6 +55,8 @@ void studento_duomenu_gavimas(vector<Studentas> &studentai){
         } else if (duomenu_surasymo_pasirinkimas == 3){
             viskas_generuojama_atsitiktinai();
         } else if (duomenu_surasymo_pasirinkimas == 4){
+            studento_duomenu_skaitymas_is_failo();
+        } else if (duomenu_surasymo_pasirinkimas == 5){
             break;
         } else {
             cout << endl << "Pasirinkite veiksma is meniu! " << endl;
@@ -155,6 +160,55 @@ void studento_egzamino_pazymio_gavimas(Studentas &laikinas_studentas){
     laikinas_studentas.egzamino_pazymys = egzamino_pazymys;
 }
 
+void studento_duomenu_skaitymas_is_failo(){
+
+    string failo_pavadinimas;
+    cout << "Iveskite norimo nuskaityti failo pavadinima: " << endl;
+    cin >> failo_pavadinimas;
+
+    while (tikrinimas_ar_pavyko_atidaryti_faila(failo_pavadinimas) == false){
+        cout << "Nepavyko atidaryti failo! Iveskite tinkama failo pavadinima: " << endl;
+        cin >> failo_pavadinimas;
+    }
+    cout << "Failas atidarytas sekmingai!" << endl;
+    duomenu_is_failo_susirasymas(failo_pavadinimas);
+
+}
+void duomenu_is_failo_susirasymas(string& failo_pavadinimas){
+
+    ifstream failas(failo_pavadinimas);
+    string antrastine_eilute;
+    getline(failas, antrastine_eilute);
+    string eilute;
+    cout << "--- Nuskaityti duomenys ---" << endl;
+    while(getline(failas, eilute)){
+        Studentas laikinas_studentas;
+        stringstream eil(eilute);
+        eil >> laikinas_studentas.pavarde >> laikinas_studentas.vardas;
+        int pazymys;
+        while (eil >> pazymys){
+            laikinas_studentas.pazymiai.push_back(pazymys);
+        }
+        laikinas_studentas.egzamino_pazymys = laikinas_studentas.pazymiai.back();
+        laikinas_studentas.pazymiai.pop_back();
+        studentai.push_back(laikinas_studentas);
+        cout << "Pavarde: " << laikinas_studentas.pavarde << ", Vardas: " << laikinas_studentas.vardas << ", Egzaminas: " << laikinas_studentas.egzamino_pazymys << endl;
+        cout << "Pazymiai: ";
+        for (int i = 0; i < laikinas_studentas.pazymiai.size(); i++){
+            cout << laikinas_studentas.pazymiai[i] << " ";
+        }
+        cout << endl;
+    }
+
+}
+bool tikrinimas_ar_pavyko_atidaryti_faila(string& failo_pavadinimas){
+    ifstream failas(failo_pavadinimas);
+    if (!failas){
+        return false;
+    }
+    return true;
+}
+
 void studento_vardo_ir_pavardes_generavimas(Studentas &laikinas_studentas){
     srand(time(0));
     int vardo_indeksas = (rand()%10);
@@ -204,7 +258,7 @@ int gauk_kiek_pazimiu_sugeneruoti(){
 int studento_duomenu_surasymo_pasirinkimas(){
     int duomenu_surasymo_pasirinkimas;
     cout << endl << "Pasirinkite norima duomenu surasymo buda is galimu variantu: "<< endl;
-    cout << "1 - ranka," <<endl << "2 - generuoti pazymius," << endl << "3 - generuoti ir pazymius ir studentu vardus, pavardes," << endl << "4 - baigti darba" << endl;
+    cout << "1 - ranka," <<endl << "2 - generuoti pazymius," << endl << "3 - generuoti ir pazymius ir studentu vardus, pavardes," << endl << "4 - skaityti duomenis is failo," << endl << "5 - baigti darba" << endl;
     cout << "Jusu pasirinkimas: ";
     cin >> duomenu_surasymo_pasirinkimas;
     cout << endl;
