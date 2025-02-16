@@ -54,27 +54,27 @@ void studento_duomenu_gavimas(vector<Studentas> &studentai){
         } else if (duomenu_surasymo_pasirinkimas == 4){
             break;
         } else {
-            cout << "Pasirinkite veiksma is meniu! ";
+            cout << endl << "Pasirinkite veiksma is meniu! " << endl;
         }
 }
 
 }
 void studento_duomenu_printinimas(vector<Studentas> &studentai){
     string skaiciavimo_budas;
-    cout << "Norite apskaiciuoti Vidurki ar Mediana?" << endl;
+    cout << "Norite apskaiciuoti v - Vidurki ar  m - Mediana? " << endl;
     cin >> skaiciavimo_budas;
-    while(skaiciavimo_budas != "Vidurki" && skaiciavimo_budas != "Mediana"){
+    while(skaiciavimo_budas != "v" && skaiciavimo_budas != "m"){
         cout << "Pasirinkite ka norite apskaiciuoti. Vidurki ar Mediana?" << endl;
         cin >> skaiciavimo_budas;
     }
 
     cout << setw(13) << left << "Pavarde" << setw(12) << left << "Vardas"<< setw(12) << left << "Galutinis" << endl;
     cout << "----------------------------------" << endl;
-    if (skaiciavimo_budas == "Mediana"){
+    if (skaiciavimo_budas == "m"){
         for (int i = 0; i < studentu_kiekis; i ++){
         cout << setw(13) << left << studentai[i].pavarde << setw(12) << left << studentai[i].vardas << setw(12) << left << fixed << setprecision(2) << (studento_medianos_skaiciavimas(studentai[i].pazymiai, studentai[i].egzamino_pazymys)) << endl;
     } 
-    }else if (skaiciavimo_budas == "Vidurki"){
+    }else if (skaiciavimo_budas == "v"){
         for (int i = 0; i < studentu_kiekis; i ++){
         cout << setw(13) << left << studentai[i].pavarde << setw(12) << left << studentai[i].vardas << setw(12) << left << fixed << setprecision(2) << (studento_vidurkio_skaiciavimas(studentai[i].pazymiai, studentai[i].egzamino_pazymys)) << endl;
     } 
@@ -115,7 +115,7 @@ double studento_medianos_skaiciavimas(vector<int> pazymiai, int egzamino_pazymys
 void studento_vardo_ir_pavardes_gavimas(Studentas &laikinas_studentas){
     cout << "Ivesite studento pavarde ir varda:" << endl;
     cin >> laikinas_studentas.pavarde >> laikinas_studentas.vardas;
-
+    cout << endl;
     studentu_kiekis += 1;
 }
 void studento_pazymiu_gavimas(Studentas &laikinas_studentas){
@@ -142,7 +142,6 @@ void studento_pazymiu_gavimas(Studentas &laikinas_studentas){
         }
 }
 void studento_egzamino_pazymio_gavimas(Studentas &laikinas_studentas){
-    cout << "Iveskite egzamino pazymi " <<endl;
     int egzamino_pazymys;
     cout << "Egzamino pazymys: ";
     cin >> egzamino_pazymys;
@@ -197,16 +196,18 @@ int gauk_kiek_pazimiu_sugeneruoti(){
         cout << "pazymiu kiekis: ";
         cin >> pazymiu_kiekis; 
     }
+    cout << endl;
     return pazymiu_kiekis;
 }
 
 
 int studento_duomenu_surasymo_pasirinkimas(){
     int duomenu_surasymo_pasirinkimas;
-    cout << "Pasirinkite norima duomenu surasymo buda is galimu variantu: "<< endl;
+    cout << endl << "Pasirinkite norima duomenu surasymo buda is galimu variantu: "<< endl;
     cout << "1 - ranka," <<endl << "2 - generuoti pazymius," << endl << "3 - generuoti ir pazymius ir studentu vardus, pavardes," << endl << "4 - baigti darba" << endl;
     cout << "Jusu pasirinkimas: ";
     cin >> duomenu_surasymo_pasirinkimas;
+    cout << endl;
     return duomenu_surasymo_pasirinkimas;
 }
 void visi_duomenys_surasomi_ranka(){
