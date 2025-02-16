@@ -16,6 +16,7 @@ vector<Studentas> studentai;
 
 void studento_duomenu_gavimas();
 void studento_duomenu_printinimas(vector<Studentas> &studentai);
+bool baigiasi_su_txt(string failo_pavadinimas);
 
 double studento_vidurkio_skaiciavimas(vector<int> pazymiai, int egzamino_pazymys);
 double studento_medianos_skaiciavimas(vector<int> pazymiai, int egzamino_pazymys);
@@ -25,7 +26,7 @@ void studento_pazymiu_gavimas(Studentas &laikinas_studentas);
 void studento_egzamino_pazymio_gavimas(Studentas &laikinas_studentas);
 
 void studento_duomenu_skaitymas_is_failo();
-void duomenu_is_failo_susirasymas(string& failo_pavadinimas);
+void duomenu_is_failo_susirasymas(vector<Studentas> &studentai, string& failo_pavadinimas);
 bool tikrinimas_ar_pavyko_atidaryti_faila(string& failo_pavadinimas);
 
 void studento_pazymiu_ir_egzaminu_generavimas(Studentas &laikinas_studentas);
@@ -69,21 +70,55 @@ void studento_duomenu_printinimas(vector<Studentas> &studentai){
     cout << "Norite apskaiciuoti v - Vidurki ar  m - Mediana? " << endl;
     cin >> skaiciavimo_budas;
     while(skaiciavimo_budas != "v" && skaiciavimo_budas != "m"){
-        cout << "Pasirinkite ka norite apskaiciuoti. Vidurki ar Mediana?" << endl;
+        cout << "Pasirinkite ka norite apskaiciuoti. v - Vidurki ar  m - Mediana?" << endl;
         cin >> skaiciavimo_budas;
     }
-
-    cout << setw(13) << left << "Pavarde" << setw(12) << left << "Vardas"<< setw(12) << left << "Galutinis" << endl;
-    cout << "----------------------------------" << endl;
-    if (skaiciavimo_budas == "m"){
-        for (int i = 0; i < studentu_kiekis; i ++){
-        cout << setw(13) << left << studentai[i].pavarde << setw(12) << left << studentai[i].vardas << setw(12) << left << fixed << setprecision(2) << (studento_medianos_skaiciavimas(studentai[i].pazymiai, studentai[i].egzamino_pazymys)) << endl;
-    } 
-    }else if (skaiciavimo_budas == "v"){
-        for (int i = 0; i < studentu_kiekis; i ++){
-        cout << setw(13) << left << studentai[i].pavarde << setw(12) << left << studentai[i].vardas << setw(12) << left << fixed << setprecision(2) << (studento_vidurkio_skaiciavimas(studentai[i].pazymiai, studentai[i].egzamino_pazymys)) << endl;
-    } 
+    string irasimo_budas;
+    cout << "Duomenis norite matyti e - Ekrane ar  f - Faile? " << endl;
+    cin >> irasimo_budas;
+    while(irasimo_budas != "e" && irasimo_budas != "f"){
+        cout << "Pasirinkite kur norite matyti duomenis. e - Ekrane ar  f - Faile?" << endl;
+        cin >> irasimo_budas;
     }
+    string failo_pavadinimas;
+    if (irasimo_budas == "f"){
+        cout << "Iveskite failo i kuri norite irasyti duomenis pavadinima (formatas: pavadinimas.txt): ";
+        cin >> failo_pavadinimas;
+        cout << endl;
+        while (baigiasi_su_txt(failo_pavadinimas) != true){
+            cout << "Netinkamas failo pavadinimas! Iveskite failo i kuri norite irasyti duomenis pavadinima (formatas: pavadinimas.txt): ";
+            cin >> failo_pavadinimas;
+        }
+    }
+
+    if (irasimo_budas == "e"){
+        cout << setw(13) << left << "Pavarde" << setw(12) << left << "Vardas"<< setw(12) << left << "Galutinis" << endl;
+        cout << "----------------------------------" << endl;
+        for (int i = 0; i < studentu_kiekis; i ++){
+            if (skaiciavimo_budas == "m"){
+                cout << setw(13) << left << studentai[i].pavarde << setw(12) << left << studentai[i].vardas << setw(12) << left << fixed << setprecision(2) << (studento_medianos_skaiciavimas(studentai[i].pazymiai, studentai[i].egzamino_pazymys)) << endl;
+            } else{
+                cout << setw(13) << left << studentai[i].pavarde << setw(12) << left << studentai[i].vardas << setw(12) << left << fixed << setprecision(2) << (studento_vidurkio_skaiciavimas(studentai[i].pazymiai, studentai[i].egzamino_pazymys)) << endl;
+            }
+        } 
+    }else if (irasimo_budas == "f"){
+        ofstream failas(failo_pavadinimas);
+        failas << setw(13) << left << "Pavarde" << setw(12) << left << "Vardas"<< setw(12) << left << "Galutinis" << endl;
+        failas << "----------------------------------" << endl;
+        for (int i = 0; i < studentu_kiekis; i ++){
+            if (skaiciavimo_budas == "m"){
+                failas << setw(13) << left << studentai[i].pavarde << setw(12) << left << studentai[i].vardas << setw(12) << left << fixed << setprecision(2) << (studento_medianos_skaiciavimas(studentai[i].pazymiai, studentai[i].egzamino_pazymys)) << endl;
+            } else{
+                failas << setw(13) << left << studentai[i].pavarde << setw(12) << left << studentai[i].vardas << setw(12) << left << fixed << setprecision(2) << (studento_vidurkio_skaiciavimas(studentai[i].pazymiai, studentai[i].egzamino_pazymys)) << endl;
+            }
+        }
+    }
+}
+bool baigiasi_su_txt(string failo_pavadinimas){
+    if (failo_pavadinimas.size() >= 4 && failo_pavadinimas.substr((failo_pavadinimas.size() - 4)) == ".txt"){
+        return true;
+    }
+    return false;
 }
 
 double studento_vidurkio_skaiciavimas(vector<int> pazymiai, int egzamino_pazymys){
@@ -171,16 +206,18 @@ void studento_duomenu_skaitymas_is_failo(){
         cin >> failo_pavadinimas;
     }
     cout << "Failas atidarytas sekmingai!" << endl;
-    duomenu_is_failo_susirasymas(failo_pavadinimas);
+    duomenu_is_failo_susirasymas(studentai, failo_pavadinimas);
 
 }
-void duomenu_is_failo_susirasymas(string& failo_pavadinimas){
+void duomenu_is_failo_susirasymas(vector<Studentas> &studentai, string& failo_pavadinimas){
 
     ifstream failas(failo_pavadinimas);
     string antrastine_eilute;
     getline(failas, antrastine_eilute);
+
     string eilute;
     cout << "--- Nuskaityti duomenys ---" << endl;
+
     while(getline(failas, eilute)){
         Studentas laikinas_studentas;
         stringstream eil(eilute);
@@ -191,13 +228,14 @@ void duomenu_is_failo_susirasymas(string& failo_pavadinimas){
         }
         laikinas_studentas.egzamino_pazymys = laikinas_studentas.pazymiai.back();
         laikinas_studentas.pazymiai.pop_back();
-        studentai.push_back(laikinas_studentas);
         cout << "Pavarde: " << laikinas_studentas.pavarde << ", Vardas: " << laikinas_studentas.vardas << ", Egzaminas: " << laikinas_studentas.egzamino_pazymys << endl;
         cout << "Pazymiai: ";
         for (int i = 0; i < laikinas_studentas.pazymiai.size(); i++){
             cout << laikinas_studentas.pazymiai[i] << " ";
         }
         cout << endl;
+        studentu_kiekis += 1;
+        studentai.push_back(laikinas_studentas);
     }
 
 }
