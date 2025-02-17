@@ -10,16 +10,23 @@ struct Studentas {
     string vardas;
     vector<int> pazymiai;
     int egzamino_pazymys;
+    double vidurkis;
+    double  mediana;
 };
 
 vector<Studentas> studentai;
 
 void studento_duomenu_gavimas();
 void studento_duomenu_printinimas(vector<Studentas> &studentai);
+void studento_duomenu_rikiavimas(vector<Studentas> &studentai);
+bool rikiuoti_pagal_varda(Studentas &a, Studentas &b);
+bool rikiuoti_pagal_pavarde(Studentas &a, Studentas &b);
+bool rikiuoti_pagal_vidurkis(Studentas &a, Studentas &b);
+bool rikiuoti_pagal_mediana(Studentas &a, Studentas &b);
 bool baigiasi_su_txt(string failo_pavadinimas);
 
-double studento_vidurkio_skaiciavimas(vector<int> pazymiai, int egzamino_pazymys);
-double studento_medianos_skaiciavimas(vector<int> pazymiai, int egzamino_pazymys);
+void studento_vidurkio_skaiciavimas(vector<Studentas> &studentai);
+void studento_medianos_skaiciavimas(vector<Studentas> &studentai);
 
 void studento_vardo_ir_pavardes_gavimas(Studentas &laikinas_studentas);
 void studento_pazymiu_gavimas(Studentas &laikinas_studentas);
@@ -66,13 +73,6 @@ void studento_duomenu_gavimas(){
 
 }
 void studento_duomenu_printinimas(vector<Studentas> &studentai){
-    string skaiciavimo_budas;
-    cout << "Norite apskaiciuoti v - Vidurki ar  m - Mediana? " << endl;
-    cin >> skaiciavimo_budas;
-    while(skaiciavimo_budas != "v" && skaiciavimo_budas != "m"){
-        cout << "Pasirinkite ka norite apskaiciuoti. v - Vidurki ar  m - Mediana?" << endl;
-        cin >> skaiciavimo_budas;
-    }
     string irasimo_budas;
     cout << "Duomenis norite matyti e - Ekrane ar  f - Faile? " << endl;
     cin >> irasimo_budas;
@@ -90,29 +90,78 @@ void studento_duomenu_printinimas(vector<Studentas> &studentai){
             cin >> failo_pavadinimas;
         }
     }
+    studento_medianos_skaiciavimas(studentai);
+    studento_vidurkio_skaiciavimas(studentai);
+    studento_duomenu_rikiavimas(studentai);
 
     if (irasimo_budas == "e"){
-        cout << setw(13) << left << "Pavarde" << setw(12) << left << "Vardas"<< setw(12) << left << "Galutinis" << endl;
-        cout << "----------------------------------" << endl;
+        cout << setw(13) << left << "Pavarde" << setw(12) << left << "Vardas"<< setw(20) << left << "Galutinis (Vid.)" << setw(20) << left << "Galutinis (Med.)" <<endl;
+        cout << "--------------------------------------------------------------" << endl;
         for (int i = 0; i < studentu_kiekis; i ++){
-            if (skaiciavimo_budas == "m"){
-                cout << setw(13) << left << studentai[i].pavarde << setw(12) << left << studentai[i].vardas << setw(12) << left << fixed << setprecision(2) << (studento_medianos_skaiciavimas(studentai[i].pazymiai, studentai[i].egzamino_pazymys)) << endl;
-            } else{
-                cout << setw(13) << left << studentai[i].pavarde << setw(12) << left << studentai[i].vardas << setw(12) << left << fixed << setprecision(2) << (studento_vidurkio_skaiciavimas(studentai[i].pazymiai, studentai[i].egzamino_pazymys)) << endl;
-            }
-        } 
+            cout << setw(13) << left << studentai[i].pavarde << setw(12) << left << studentai[i].vardas << setw(20) << left << fixed << setprecision(2) << studentai[i].vidurkis << setw(20) << studentai[i].mediana << endl;
+            }  
     }else if (irasimo_budas == "f"){
         ofstream failas(failo_pavadinimas);
-        failas << setw(13) << left << "Pavarde" << setw(12) << left << "Vardas"<< setw(12) << left << "Galutinis" << endl;
-        failas << "----------------------------------" << endl;
+        failas << setw(13) << left << "Pavarde" << setw(12) << left << "Vardas"<< setw(20) << left << "Galutinis (Vid.)" << setw(20) << left << "Galutinis (Med.)" <<endl;
+        failas << "--------------------------------------------------------------" << endl;
         for (int i = 0; i < studentu_kiekis; i ++){
-            if (skaiciavimo_budas == "m"){
-                failas << setw(13) << left << studentai[i].pavarde << setw(12) << left << studentai[i].vardas << setw(12) << left << fixed << setprecision(2) << (studento_medianos_skaiciavimas(studentai[i].pazymiai, studentai[i].egzamino_pazymys)) << endl;
-            } else{
-                failas << setw(13) << left << studentai[i].pavarde << setw(12) << left << studentai[i].vardas << setw(12) << left << fixed << setprecision(2) << (studento_vidurkio_skaiciavimas(studentai[i].pazymiai, studentai[i].egzamino_pazymys)) << endl;
-            }
-        }
+            failas << setw(13) << left << studentai[i].pavarde << setw(12) << left << studentai[i].vardas << setw(20) << left << fixed << setprecision(2) << studentai[i].vidurkis << setw(20) << studentai[i].mediana << endl;
+            } 
     }
+}
+void studento_duomenu_rikiavimas(vector<Studentas> &studentai){
+    int rusiuoti_pagal;
+    while (true) {
+    cout << "Pasirinkite rikiavimo kriteriju: " << endl;
+    cout << "1 - Pagal varda" << endl;
+    cout << "2 - Pagal pavarde" << endl;
+    cout << "3 - Pagal galutini vidurki" << endl;
+    cout << "4 - Pagal galutine mediana" << endl;
+    cout << "5 - Palikti taip kaip dabar yra" << endl;
+    cout << "Jusu pasirinkimas: ";
+    cin >> rusiuoti_pagal; 
+    cout << endl;
+
+    if (cin.fail() || rusiuoti_pagal < 1 || rusiuoti_pagal > 5){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Neteisingas pasirinkimas!" << endl;
+        continue;
+    }
+    break;
+    }
+
+    switch (rusiuoti_pagal)
+    {
+    case 1:
+        sort(studentai.begin(), studentai.end(), rikiuoti_pagal_varda);
+        break;
+    case 2:
+        sort(studentai.begin(), studentai.end(), rikiuoti_pagal_pavarde);
+        break;
+        case 3:
+        sort(studentai.begin(), studentai.end(), rikiuoti_pagal_vidurkis);
+        break;
+    case 4:
+        sort(studentai.begin(), studentai.end(), rikiuoti_pagal_mediana);
+        break;
+    default:
+        
+        break;
+    }
+
+}
+bool rikiuoti_pagal_varda(Studentas &a, Studentas &b){
+    return a.vardas < b.vardas;
+}
+bool rikiuoti_pagal_pavarde(Studentas &a, Studentas &b){
+    return a.pavarde < b.pavarde;
+}
+bool rikiuoti_pagal_vidurkis(Studentas &a, Studentas &b){
+    return a.vidurkis > b.vidurkis;
+}
+bool rikiuoti_pagal_mediana(Studentas &a, Studentas &b){
+    return a.mediana > b.mediana;
 }
 bool baigiasi_su_txt(string failo_pavadinimas){
     if (failo_pavadinimas.size() >= 4 && failo_pavadinimas.substr((failo_pavadinimas.size() - 4)) == ".txt"){
@@ -121,40 +170,51 @@ bool baigiasi_su_txt(string failo_pavadinimas){
     return false;
 }
 
-double studento_vidurkio_skaiciavimas(vector<int> pazymiai, int egzamino_pazymys){
-    int pazymiu_suma = 0;
-    int pazymiu_kiekis = pazymiai.size();
+void studento_vidurkio_skaiciavimas(vector<Studentas> &studentai){
+    for (int i = 0; i < studentu_kiekis; i++){
+        int pazymiu_suma = 0;
+        int pazymiu_kiekis = studentai[i].pazymiai.size();
+    
+        if (pazymiu_kiekis == 0){
+            studentai[i].vidurkis = 0.6 * studentai[i].egzamino_pazymys;
+        } else{ 
+            for (int j = 0; j < pazymiu_kiekis; j++){
+                pazymiu_suma += studentai[i].pazymiai[j];
+            }
+            double pazymiu_vidurkis = pazymiu_suma * 1.0 / pazymiu_kiekis;
+            double vidurkis = 0.4 * pazymiu_vidurkis + 0.6 * studentai[i].egzamino_pazymys;
+            studentai[i].vidurkis = vidurkis;
+        }
+    }
 
-    if (pazymiu_kiekis == 0){
-        return 0.6 * egzamino_pazymys;
-    }
-    for (int i = 0; i < pazymiu_kiekis; i++){
-        pazymiu_suma += pazymiai[i];
-    }
-    double pazymiu_vidurkis = pazymiu_suma * 1.0 / pazymiu_kiekis;
-    double vidurkis = 0.4 * pazymiu_vidurkis + 0.6 * egzamino_pazymys;
-    return vidurkis;
 }
-double studento_medianos_skaiciavimas(vector<int> pazymiai, int egzamino_pazymys){
-    int pazymiu_kiekis = pazymiai.size();
-    if (pazymiu_kiekis == 0){
-        return 0.6 * egzamino_pazymys;
+void studento_medianos_skaiciavimas(vector<Studentas> &studentai){
+    for (int i = 0; i < studentu_kiekis; i++){
+        int pazymiu_kiekis = studentai[i].pazymiai.size();
+        if (pazymiu_kiekis == 0){
+            studentai[i].mediana =  0.6 * studentai[i].egzamino_pazymys;
+        }else{ 
+            sort(studentai[i].pazymiai.begin(), studentai[i].pazymiai.end());
+            double mediana;
+            if(pazymiu_kiekis%2 == 0){
+                mediana = (studentai[i].pazymiai[pazymiu_kiekis/2] + studentai[i].pazymiai[pazymiu_kiekis/2 -1]) / 2.0;
+            } else{
+                mediana = (studentai[i].pazymiai[pazymiu_kiekis/2]);
+            }
+        
+            double vidurkis = 0.4 * mediana + 0.6 * studentai[i].egzamino_pazymys;
+            studentai[i].mediana = vidurkis;
+        }
     }
-    sort(pazymiai.begin(), pazymiai.end());
-    double mediana;
-    if(pazymiu_kiekis%2 == 0){
-        mediana = (pazymiai[pazymiu_kiekis/2] + pazymiai[pazymiu_kiekis/2 -1]) / 2.0;
-    } else{
-        mediana = (pazymiai[pazymiu_kiekis/2]);
-    }
-
-    double vidurkis = 0.4 * mediana + 0.6 * egzamino_pazymys;
-    return vidurkis;
 }
 
 void studento_vardo_ir_pavardes_gavimas(Studentas &laikinas_studentas){
     cout << "Ivesite studento pavarde ir varda:" << endl;
     cin >> laikinas_studentas.pavarde >> laikinas_studentas.vardas;
+    while (any_of(laikinas_studentas.vardas.begin(), laikinas_studentas.vardas.end(), isdigit) || (any_of(laikinas_studentas.pavarde.begin(), laikinas_studentas.pavarde.end(), isdigit))){
+        cout << "Pavarde ir varda turi sudaryti tik raides. Ivesite studento pavarde ir varda:" << endl;
+        cin >> laikinas_studentas.pavarde >> laikinas_studentas.vardas;
+    }
     cout << endl;
     studentu_kiekis += 1;
 }

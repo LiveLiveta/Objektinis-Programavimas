@@ -9,6 +9,8 @@
 #include <ctime>
 #include <fstream>
 #include <sstream>
+#include <functional>
+#include <cctype>
 
 using std:: cout;
 using std:: cin;
@@ -30,3 +32,6 @@ using std:: ifstream;
 using std:: ofstream;
 using std:: getline;
 using std:: stringstream;
+using std:: greater;
+using std:: any_of;
+using :: isdigit;
