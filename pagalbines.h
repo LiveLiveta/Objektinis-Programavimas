@@ -36,3 +36,5 @@ using std:: greater;
 using std:: any_of;
 using :: isdigit;
 using std:: atoi;
+using :: tolower;
+using std:: transform;

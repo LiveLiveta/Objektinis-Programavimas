@@ -158,7 +158,11 @@ bool rikiuoti_pagal_varda(Studentas &a, Studentas &b){
         int sk2 = stoi(b.vardas.substr(6));
         return sk1 < sk2;
     }
-    return a.vardas < b.vardas;
+    string vardas_a = a.vardas;
+    string vardas_b = b.vardas;
+    transform(vardas_a.begin(), vardas_a.end(), vardas_a.begin(), tolower);
+    transform(vardas_b.begin(), vardas_b.end(), vardas_b.begin(), tolower);
+    return vardas_a < vardas_b;
 }
 bool rikiuoti_pagal_pavarde(Studentas &a, Studentas &b){
     if (a.pavarde.substr(0, 7) == "Pavarde" && b.pavarde.substr(0, 7) == "Pavarde"){
@@ -166,7 +170,11 @@ bool rikiuoti_pagal_pavarde(Studentas &a, Studentas &b){
         int sk2 = stoi(b.pavarde.substr(7));
         return sk1 < sk2;
     }
-    return a.pavarde < b.pavarde;
+    string pavarde_a = a.pavarde;
+    string pavarde_b = b.pavarde;
+    transform(pavarde_a.begin(), pavarde_a.end(), pavarde_a.begin(), tolower);
+    transform(pavarde_b.begin(), pavarde_b.end(), pavarde_b.begin(), tolower);
+    return pavarde_a < pavarde_b;
 }
 bool rikiuoti_pagal_vidurkis(Studentas &a, Studentas &b){
     return a.vidurkis > b.vidurkis;
