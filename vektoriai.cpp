@@ -17,6 +17,7 @@ struct Studentas {
 vector<Studentas> studentai;
 
 void studento_duomenu_gavimas();
+double laiku_vidurkio_skaiciavimas(vector<double> &operaciju_laikai);
 void studento_duomenu_printinimas(vector<Studentas> &studentai);
 void studento_duomenu_rikiavimas(vector<Studentas> &studentai);
 bool rikiuoti_pagal_varda(Studentas &a, Studentas &b);
@@ -54,7 +55,10 @@ int main(){
 }
 
 void studento_duomenu_gavimas(){
+    vector<double> operaciju_laikai;
      while(true){
+        auto pradzia = std::chrono::high_resolution_clock::now();
+
         int  duomenu_surasymo_pasirinkimas = studento_duomenu_surasymo_pasirinkimas();
         if (duomenu_surasymo_pasirinkimas == 1){
             visi_duomenys_surasomi_ranka();
@@ -65,13 +69,29 @@ void studento_duomenu_gavimas(){
         } else if (duomenu_surasymo_pasirinkimas == 4){
             studento_duomenu_skaitymas_is_failo();
         } else if (duomenu_surasymo_pasirinkimas == 5){
+            cout << endl << "Operacija vidutiniskai uztruko: " << laiku_vidurkio_skaiciavimas(operaciju_laikai) << " s" << endl;
             break;
         } else {
             cout << endl << "Pasirinkite veiksma is meniu! " << endl;
         }
+        auto pabaiga = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> trukme = pabaiga - pradzia;
+        cout << "Operacija uztruko: " << trukme.count() << " s" << endl;
+        operaciju_laikai.push_back(trukme.count());
+    }
+}
+double laiku_vidurkio_skaiciavimas(vector<double> &operaciju_laikai){
+    int operaciju_kiekis = operaciju_laikai.size();
+    double visas_laikas = 0;
+
+    for (int i = 0; i < operaciju_kiekis; i++){
+        visas_laikas += operaciju_laikai[i];
+    }
+
+    double vidurkis = visas_laikas / operaciju_kiekis;
+    return vidurkis;
 }
 
-}
 void studento_duomenu_printinimas(vector<Studentas> &studentai){
     string irasimo_budas;
     cout << "Duomenis norite matyti e - Ekrane ar  f - Faile? " << endl;
