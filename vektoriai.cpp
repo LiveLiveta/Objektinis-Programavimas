@@ -95,17 +95,17 @@ void studento_duomenu_printinimas(vector<Studentas> &studentai){
     studento_duomenu_rikiavimas(studentai);
 
     if (irasimo_budas == "e"){
-        cout << setw(13) << left << "Pavarde" << setw(12) << left << "Vardas"<< setw(20) << left << "Galutinis (Vid.)" << setw(20) << left << "Galutinis (Med.)" <<endl;
+        cout << setw(13) << left << "Vardas" << setw(12) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.)" << setw(20) << left << "Galutinis (Med.)" <<endl;
         cout << "--------------------------------------------------------------" << endl;
         for (int i = 0; i < studentu_kiekis; i ++){
-            cout << setw(13) << left << studentai[i].pavarde << setw(12) << left << studentai[i].vardas << setw(20) << left << fixed << setprecision(2) << studentai[i].vidurkis << setw(20) << studentai[i].mediana << endl;
+            cout << setw(13) << left << studentai[i].vardas << setw(12) << left << studentai[i].pavarde << setw(20) << left << fixed << setprecision(2) << studentai[i].vidurkis << setw(20) << studentai[i].mediana << endl;
             }  
     }else if (irasimo_budas == "f"){
         ofstream failas(failo_pavadinimas);
-        failas << setw(13) << left << "Pavarde" << setw(12) << left << "Vardas"<< setw(20) << left << "Galutinis (Vid.)" << setw(20) << left << "Galutinis (Med.)" <<endl;
+        failas << setw(13) << left << "Vardas" << setw(12) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.)" << setw(20) << left << "Galutinis (Med.)" <<endl;
         failas << "--------------------------------------------------------------" << endl;
         for (int i = 0; i < studentu_kiekis; i ++){
-            failas << setw(13) << left << studentai[i].pavarde << setw(12) << left << studentai[i].vardas << setw(20) << left << fixed << setprecision(2) << studentai[i].vidurkis << setw(20) << studentai[i].mediana << endl;
+            failas << setw(13) << left << studentai[i].vardas << setw(12) << left << studentai[i].pavarde << setw(20) << left << fixed << setprecision(2) << studentai[i].vidurkis << setw(20) << studentai[i].mediana << endl;
             } 
     }
 }
@@ -139,7 +139,7 @@ void studento_duomenu_rikiavimas(vector<Studentas> &studentai){
     case 2:
         sort(studentai.begin(), studentai.end(), rikiuoti_pagal_pavarde);
         break;
-        case 3:
+    case 3:
         sort(studentai.begin(), studentai.end(), rikiuoti_pagal_vidurkis);
         break;
     case 4:
@@ -152,9 +152,20 @@ void studento_duomenu_rikiavimas(vector<Studentas> &studentai){
 
 }
 bool rikiuoti_pagal_varda(Studentas &a, Studentas &b){
+
+    if (a.vardas.substr(0, 6) == "Vardas" && b.vardas.substr(0, 6) == "Vardas"){
+        int sk1 = stoi(a.vardas.substr(6));
+        int sk2 = stoi(b.vardas.substr(6));
+        return sk1 < sk2;
+    }
     return a.vardas < b.vardas;
 }
 bool rikiuoti_pagal_pavarde(Studentas &a, Studentas &b){
+    if (a.pavarde.substr(0, 7) == "Pavarde" && b.pavarde.substr(0, 7) == "Pavarde"){
+        int sk1 = stoi(a.pavarde.substr(7));
+        int sk2 = stoi(b.pavarde.substr(7));
+        return sk1 < sk2;
+    }
     return a.pavarde < b.pavarde;
 }
 bool rikiuoti_pagal_vidurkis(Studentas &a, Studentas &b){
@@ -209,12 +220,8 @@ void studento_medianos_skaiciavimas(vector<Studentas> &studentai){
 }
 
 void studento_vardo_ir_pavardes_gavimas(Studentas &laikinas_studentas){
-    cout << "Ivesite studento pavarde ir varda:" << endl;
-    cin >> laikinas_studentas.pavarde >> laikinas_studentas.vardas;
-    while (any_of(laikinas_studentas.vardas.begin(), laikinas_studentas.vardas.end(), isdigit) || (any_of(laikinas_studentas.pavarde.begin(), laikinas_studentas.pavarde.end(), isdigit))){
-        cout << "Pavarde ir varda turi sudaryti tik raides. Ivesite studento pavarde ir varda:" << endl;
-        cin >> laikinas_studentas.pavarde >> laikinas_studentas.vardas;
-    }
+    cout << "Ivesite studento varda ir pavarde:" << endl;
+    cin >> laikinas_studentas.vardas >> laikinas_studentas.pavarde;
     cout << endl;
     studentu_kiekis += 1;
 }
@@ -276,27 +283,21 @@ void duomenu_is_failo_susirasymas(vector<Studentas> &studentai, string& failo_pa
     getline(failas, antrastine_eilute);
 
     string eilute;
-    cout << "--- Nuskaityti duomenys ---" << endl;
 
     while(getline(failas, eilute)){
         Studentas laikinas_studentas;
         stringstream eil(eilute);
-        eil >> laikinas_studentas.pavarde >> laikinas_studentas.vardas;
+        eil >> laikinas_studentas.vardas >> laikinas_studentas.pavarde;
         int pazymys;
         while (eil >> pazymys){
             laikinas_studentas.pazymiai.push_back(pazymys);
         }
         laikinas_studentas.egzamino_pazymys = laikinas_studentas.pazymiai.back();
         laikinas_studentas.pazymiai.pop_back();
-        cout << "Pavarde: " << laikinas_studentas.pavarde << ", Vardas: " << laikinas_studentas.vardas << ", Egzaminas: " << laikinas_studentas.egzamino_pazymys << endl;
-        cout << "Pazymiai: ";
-        for (int i = 0; i < laikinas_studentas.pazymiai.size(); i++){
-            cout << laikinas_studentas.pazymiai[i] << " ";
-        }
-        cout << endl;
         studentu_kiekis += 1;
         studentai.push_back(laikinas_studentas);
     }
+    cout << "Duomenys nuskaityti sekmingai!" << endl;
 
 }
 bool tikrinimas_ar_pavyko_atidaryti_faila(string& failo_pavadinimas){
@@ -312,7 +313,7 @@ void studento_vardo_ir_pavardes_generavimas(Studentas &laikinas_studentas){
     int vardo_indeksas = (rand()%10);
     int pavardes_indeksas = (rand()%10);
 
-    cout << "Studento pavarde ir vardas: " << pavardes[pavardes_indeksas] <<" "<< vardai[vardo_indeksas] <<endl;
+    cout << "Studento vardas pavarde: " << vardai[vardo_indeksas] <<" "<< pavardes[pavardes_indeksas] <<endl;
     
     laikinas_studentas.pavarde = pavardes[pavardes_indeksas];
     laikinas_studentas.vardas = vardai[vardo_indeksas];

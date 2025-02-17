@@ -35,3 +35,4 @@ using std:: stringstream;
 using std:: greater;
 using std:: any_of;
 using :: isdigit;
+using std:: atoi;
