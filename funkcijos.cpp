@@ -24,6 +24,15 @@ void studento_duomenu_gavimas(){
         }
    }
 }
+int studento_duomenu_surasymo_pasirinkimas(){
+    int duomenu_surasymo_pasirinkimas;
+    cout << endl << "Pasirinkite norima duomenu surasymo buda is galimu variantu: "<< endl;
+    cout << "1 - ranka," <<endl << "2 - generuoti pazymius," << endl << "3 - generuoti ir pazymius ir studentu vardus, pavardes," << endl << "4 - skaityti duomenis is failo," << endl << "5 - baigti darba" << endl;
+    cout << "Jusu pasirinkimas: ";
+    cin >> duomenu_surasymo_pasirinkimas;
+    cout << endl;
+    return duomenu_surasymo_pasirinkimas;
+ }
 double laiku_vidurkio_skaiciavimas(vector<double> &operaciju_laikai){
    int operaciju_kiekis = operaciju_laikai.size();
    double visas_laikas = 0;
@@ -335,16 +344,6 @@ int gauk_kiek_pazimiu_sugeneruoti(){
    return pazymiu_kiekis;
 }
 
-
-int studento_duomenu_surasymo_pasirinkimas(){
-   int duomenu_surasymo_pasirinkimas;
-   cout << endl << "Pasirinkite norima duomenu surasymo buda is galimu variantu: "<< endl;
-   cout << "1 - ranka," <<endl << "2 - generuoti pazymius," << endl << "3 - generuoti ir pazymius ir studentu vardus, pavardes," << endl << "4 - skaityti duomenis is failo," << endl << "5 - baigti darba" << endl;
-   cout << "Jusu pasirinkimas: ";
-   cin >> duomenu_surasymo_pasirinkimas;
-   cout << endl;
-   return duomenu_surasymo_pasirinkimas;
-}
 void visi_duomenys_surasomi_ranka(){
 
    Studentas laikinas_studentas;
