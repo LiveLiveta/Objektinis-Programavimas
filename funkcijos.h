@@ -19,7 +19,7 @@ extern vector<Studentas> studentai;
 extern vector<double> operaciju_laikai;
 extern int operaciju_kiekis;
 
-void studento_duomenu_gavimas(int &operaciju_kiekis, vector<double> operaciju_laikai);
+void studento_duomenu_gavimas();
 double laiku_vidurkio_skaiciavimas(vector<double> &operaciju_laikai);
 void studento_duomenu_printinimas(vector<Studentas> &studentai);
 void studento_duomenu_rikiavimas(vector<Studentas> &studentai);
