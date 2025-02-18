@@ -104,8 +104,7 @@ void studento_duomenu_rikiavimas(vector<Studentas> &studentai){
    break;
    }
 
-   switch (rusiuoti_pagal)
-   {
+   switch (rusiuoti_pagal){
    case 1:
        sort(studentai.begin(), studentai.end(), rikiuoti_pagal_varda);
        break;
@@ -206,8 +205,8 @@ void studento_vardo_ir_pavardes_gavimas(Studentas &laikinas_studentas){
    studentu_kiekis += 1;
 }
 void studento_pazymiu_gavimas(Studentas &laikinas_studentas){
-   cout << "Iveskite pazymius (jei surasete visus pazymius iveskite -2): "<<endl;
-       int pazymys = 0; //tam kad patekti i while cikla.
+    cout << "Iveskite pazymius (jei surasete visus pazymius iveskite -2): "<<endl;
+    int pazymys = 0; //tam kad patekti i while cikla.
 
        while (pazymys != -2){
            cout << "Pazymys: ";
@@ -233,12 +232,12 @@ void studento_egzamino_pazymio_gavimas(Studentas &laikinas_studentas){
    cout << "Egzamino pazymys: ";
    cin >> egzamino_pazymys;
    while (egzamino_pazymys <= 0 || egzamino_pazymys > 10 || cin.fail()){
-               cin.clear();
-               cin.ignore(numeric_limits<streamsize>::max(), '\n');
-               cout << "Iveskite skaiciu nuo 1 iki 10!" << endl;
-               cout << "Egzamino pazymys: ";
-               cin >> egzamino_pazymys; 
-           }
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Iveskite skaiciu nuo 1 iki 10!" << endl;
+        cout << "Egzamino pazymys: ";
+        cin >> egzamino_pazymys; 
+    }
    laikinas_studentas.egzamino_pazymys = egzamino_pazymys;
 }
 
@@ -353,8 +352,9 @@ void visi_duomenys_surasomi_ranka(){
    studento_egzamino_pazymio_gavimas(laikinas_studentas);
 
    studentai.push_back(laikinas_studentas);
-   }
+}
 void surasoma_ranka_isskyrus_pazymius(){
+
    Studentas laikinas_studentas;
    
    studento_vardo_ir_pavardes_gavimas(laikinas_studentas); 
@@ -363,6 +363,7 @@ void surasoma_ranka_isskyrus_pazymius(){
    studentai.push_back(laikinas_studentas);
 }
 void viskas_generuojama_atsitiktinai(){
+    
     Studentas laikinas_studentas;
     
     studento_vardo_ir_pavardes_generavimas(laikinas_studentas); 
