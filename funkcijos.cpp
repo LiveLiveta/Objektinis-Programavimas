@@ -165,7 +165,6 @@ void studento_vidurkio_skaiciavimas(vector<Studentas> &studentai){
            studentai[i].vidurkis = vidurkis;
        }
    }
-
 }
 void studento_medianos_skaiciavimas(vector<Studentas> &studentai){
    for (int i = 0; i < studentu_kiekis; i++){
@@ -235,10 +234,15 @@ void studento_duomenu_skaitymas_is_failo(){
    cout << "Iveskite norimo nuskaityti failo pavadinima: " << endl;
    cin >> failo_pavadinimas;
 
-   while (tikrinimas_ar_pavyko_atidaryti_faila(failo_pavadinimas) == false){
-       cout << "Nepavyko atidaryti failo! Iveskite tinkama failo pavadinima: " << endl;
-       cin >> failo_pavadinimas;
-   }
+    while (true){
+        try{
+            tikrinimas_ar_pavyko_atidaryti_faila(failo_pavadinimas);
+            break;
+        }catch(exception &eroras){
+            cout << eroras.what() << endl;
+            cin >> failo_pavadinimas;
+        }
+    }
    cout << "Failas atidarytas sekmingai!" << endl;
    duomenu_is_failo_susirasymas(studentai, failo_pavadinimas);
 
@@ -274,12 +278,12 @@ void duomenu_is_failo_susirasymas(vector<Studentas> &studentai, string& failo_pa
 
    cout << "Duomenys nuskaityti sekmingai!" << endl;
 }
-bool tikrinimas_ar_pavyko_atidaryti_faila(string& failo_pavadinimas){
-   ifstream failas(failo_pavadinimas);
-   if (!failas){
-       return false;
-   }
-   return true;
+void tikrinimas_ar_pavyko_atidaryti_faila(string& failo_pavadinimas){
+
+    ifstream failas(failo_pavadinimas);
+    if (!failas){
+        throw runtime_error("Nepavyko atidaryti failo! Iveskite tinkama failo pavadinima: ");
+    }
 }
 
 void studento_vardo_ir_pavardes_generavimas(Studentas &laikinas_studentas){

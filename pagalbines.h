@@ -40,4 +40,5 @@ using std:: atoi;
 using :: tolower;
 using std:: transform;
 using std:: invalid_argument;
+using std:: runtime_error;
 using std:: exception;

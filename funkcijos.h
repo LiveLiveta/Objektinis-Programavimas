@@ -38,7 +38,7 @@ void studento_egzamino_pazymio_gavimas(Studentas &laikinas_studentas);
 
 void studento_duomenu_skaitymas_is_failo();
 void duomenu_is_failo_susirasymas(vector<Studentas> &studentai, string& failo_pavadinimas);
-bool tikrinimas_ar_pavyko_atidaryti_faila(string& failo_pavadinimas);
+void tikrinimas_ar_pavyko_atidaryti_faila(string& failo_pavadinimas);
 
 void studento_pazymiu_ir_egzaminu_generavimas(Studentas &laikinas_studentas);
 int gauk_kiek_pazimiu_sugeneruoti();
