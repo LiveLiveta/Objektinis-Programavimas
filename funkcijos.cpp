@@ -2,27 +2,23 @@
 
 void studento_duomenu_gavimas(){
     while(true){
-        try{
-            int  duomenu_surasymo_pasirinkimas = studento_duomenu_surasymo_pasirinkimas();
-            if (duomenu_surasymo_pasirinkimas == 1){
-                visi_duomenys_surasomi_ranka();
-            } else if (duomenu_surasymo_pasirinkimas == 2){
-                surasoma_ranka_isskyrus_pazymius();
-            } else if (duomenu_surasymo_pasirinkimas == 3){
-                viskas_generuojama_atsitiktinai();
-            } else if (duomenu_surasymo_pasirinkimas == 4){
-                studento_duomenu_skaitymas_is_failo();
-            } else if (duomenu_surasymo_pasirinkimas == 5){
-                cout << "Atlikta operaciju: " << operaciju_kiekis << endl;
-                cout << endl << "Operacija vidutiniskai uztruko: " << laiku_vidurkio_skaiciavimas(operaciju_laikai) << " s" << endl;
-                break;
-            } else {
-                throw runtime_error("\nPasirinkite veiksma is meniu! \n");
-            }
-        } catch (exception& eroras) {
-            cout << "Klaida: " << eroras.what() << endl;
-            }
-    }
+       int  duomenu_surasymo_pasirinkimas = studento_duomenu_surasymo_pasirinkimas();
+       if (duomenu_surasymo_pasirinkimas == 1){
+           visi_duomenys_surasomi_ranka();
+       } else if (duomenu_surasymo_pasirinkimas == 2){
+           surasoma_ranka_isskyrus_pazymius();
+       } else if (duomenu_surasymo_pasirinkimas == 3){
+           viskas_generuojama_atsitiktinai();
+       } else if (duomenu_surasymo_pasirinkimas == 4){
+           studento_duomenu_skaitymas_is_failo();
+       } else if (duomenu_surasymo_pasirinkimas == 5){
+           cout << "Atlikta operaciju: " << operaciju_kiekis << endl;
+           cout << endl << "Operacija vidutiniskai uztruko: " << laiku_vidurkio_skaiciavimas(operaciju_laikai) << " s" << endl;
+           break;
+       } else {
+           cout << endl << "Pasirinkite veiksma is meniu! " << endl;
+       }
+   }
 }
 double laiku_vidurkio_skaiciavimas(vector<double> &operaciju_laikai){
    int operaciju_kiekis = operaciju_laikai.size();
