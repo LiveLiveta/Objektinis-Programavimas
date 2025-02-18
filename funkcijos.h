@@ -20,7 +20,9 @@ extern vector<double> operaciju_laikai;
 extern int operaciju_kiekis;
 
 void studento_duomenu_gavimas();
+int studento_duomenu_surasymo_pasirinkimas();
 double laiku_vidurkio_skaiciavimas(vector<double> &operaciju_laikai);
+
 void studento_duomenu_printinimas(vector<Studentas> &studentai);
 void studento_duomenu_rikiavimas(vector<Studentas> &studentai);
 bool rikiuoti_pagal_varda(Studentas &a, Studentas &b);
@@ -44,7 +46,6 @@ void studento_pazymiu_ir_egzaminu_generavimas(Studentas &laikinas_studentas);
 int gauk_kiek_pazimiu_sugeneruoti();
 void studento_vardo_ir_pavardes_generavimas(Studentas &laikinas_studentas);
 
-int studento_duomenu_surasymo_pasirinkimas();
 void visi_duomenys_surasomi_ranka();
 void surasoma_ranka_isskyrus_pazymius();
 void viskas_generuojama_atsitiktinai();
