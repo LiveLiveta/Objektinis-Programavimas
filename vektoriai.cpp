@@ -1,53 +1,14 @@
 #include "pagalbines.h"
+#include "funkcijos.h"
 
 const int PRADINIS_DYDIS = 10;
 int studentu_kiekis = 0;
 vector<string> vardai = { "Mantas", "Lukas", "Dominykas", "Kajus", "Dovydas", "Rokas", "Emilis", "Tadas", "Benas", "Jokubas"};
 vector<string> pavardes ={ "Kazlauskas", "Petrauskas", "Jankauskas", "Baliunas", "Vaiciulis", "Stankevicius", "Jonaitis", "Urbonas", "Zabielskas", "Paulauskas"};
 
-struct Studentas {
-    string pavarde;
-    string vardas;
-    vector<int> pazymiai;
-    int egzamino_pazymys;
-    double vidurkis;
-    double  mediana;
-};
-
 vector<Studentas> studentai;
 vector<double> operaciju_laikai;
 int operaciju_kiekis = 0;
-
-void studento_duomenu_gavimas();
-double laiku_vidurkio_skaiciavimas(vector<double> &operaciju_laikai);
-void studento_duomenu_printinimas(vector<Studentas> &studentai);
-void studento_duomenu_rikiavimas(vector<Studentas> &studentai);
-bool rikiuoti_pagal_varda(Studentas &a, Studentas &b);
-bool rikiuoti_pagal_pavarde(Studentas &a, Studentas &b);
-bool rikiuoti_pagal_vidurkis(Studentas &a, Studentas &b);
-bool rikiuoti_pagal_mediana(Studentas &a, Studentas &b);
-bool baigiasi_su_txt(string failo_pavadinimas);
-
-void studento_vidurkio_skaiciavimas(vector<Studentas> &studentai);
-void studento_medianos_skaiciavimas(vector<Studentas> &studentai);
-
-void studento_vardo_ir_pavardes_gavimas(Studentas &laikinas_studentas);
-void studento_pazymiu_gavimas(Studentas &laikinas_studentas);
-void studento_egzamino_pazymio_gavimas(Studentas &laikinas_studentas);
-
-void studento_duomenu_skaitymas_is_failo();
-void duomenu_is_failo_susirasymas(vector<Studentas> &studentai, string& failo_pavadinimas);
-bool tikrinimas_ar_pavyko_atidaryti_faila(string& failo_pavadinimas);
-
-void studento_pazymiu_ir_egzaminu_generavimas(Studentas &laikinas_studentas);
-int gauk_kiek_pazimiu_sugeneruoti();
-void studento_vardo_ir_pavardes_generavimas(Studentas &laikinas_studentas);
-
-int studento_duomenu_surasymo_pasirinkimas();
-void visi_duomenys_surasomi_ranka();
-void surasoma_ranka_isskyrus_pazymius();
-void viskas_generuojama_atsitiktinai();
-
 
 
 int main(){
