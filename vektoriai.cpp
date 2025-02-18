@@ -15,6 +15,8 @@ struct Studentas {
 };
 
 vector<Studentas> studentai;
+vector<double> operaciju_laikai;
+int operaciju_kiekis = 0;
 
 void studento_duomenu_gavimas();
 double laiku_vidurkio_skaiciavimas(vector<double> &operaciju_laikai);
@@ -55,10 +57,7 @@ int main(){
 }
 
 void studento_duomenu_gavimas(){
-    vector<double> operaciju_laikai;
      while(true){
-        auto pradzia = std::chrono::high_resolution_clock::now();
-
         int  duomenu_surasymo_pasirinkimas = studento_duomenu_surasymo_pasirinkimas();
         if (duomenu_surasymo_pasirinkimas == 1){
             visi_duomenys_surasomi_ranka();
@@ -69,15 +68,12 @@ void studento_duomenu_gavimas(){
         } else if (duomenu_surasymo_pasirinkimas == 4){
             studento_duomenu_skaitymas_is_failo();
         } else if (duomenu_surasymo_pasirinkimas == 5){
+            cout << "Atlikta operaciju: " << operaciju_kiekis << endl;
             cout << endl << "Operacija vidutiniskai uztruko: " << laiku_vidurkio_skaiciavimas(operaciju_laikai) << " s" << endl;
             break;
         } else {
             cout << endl << "Pasirinkite veiksma is meniu! " << endl;
         }
-        auto pabaiga = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> trukme = pabaiga - pradzia;
-        cout << "Operacija uztruko: " << trukme.count() << " s" << endl;
-        operaciju_laikai.push_back(trukme.count());
     }
 }
 double laiku_vidurkio_skaiciavimas(vector<double> &operaciju_laikai){
@@ -291,7 +287,6 @@ void studento_egzamino_pazymio_gavimas(Studentas &laikinas_studentas){
 }
 
 void studento_duomenu_skaitymas_is_failo(){
-
     string failo_pavadinimas;
     cout << "Iveskite norimo nuskaityti failo pavadinima: " << endl;
     cin >> failo_pavadinimas;
@@ -305,6 +300,7 @@ void studento_duomenu_skaitymas_is_failo(){
 
 }
 void duomenu_is_failo_susirasymas(vector<Studentas> &studentai, string& failo_pavadinimas){
+    auto pradzia = std::chrono::high_resolution_clock::now();
 
     ifstream failas(failo_pavadinimas);
     string antrastine_eilute;
@@ -325,8 +321,14 @@ void duomenu_is_failo_susirasymas(vector<Studentas> &studentai, string& failo_pa
         studentu_kiekis += 1;
         studentai.push_back(laikinas_studentas);
     }
-    cout << "Duomenys nuskaityti sekmingai!" << endl;
+    operaciju_kiekis += 1;
+    
+    auto pabaiga = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> trukme = pabaiga - pradzia;
+    cout << endl << "Operacija uztruko: " << trukme.count() << " s" << endl;
+    operaciju_laikai.push_back(trukme.count());
 
+    cout << "Duomenys nuskaityti sekmingai!" << endl;
 }
 bool tikrinimas_ar_pavyko_atidaryti_faila(string& failo_pavadinimas){
     ifstream failas(failo_pavadinimas);
