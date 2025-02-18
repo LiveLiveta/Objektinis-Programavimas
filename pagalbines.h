@@ -39,3 +39,5 @@ using :: isdigit;
 using std:: atoi;
 using :: tolower;
 using std:: transform;
+using std:: runtime_error;
+using std:: exception;
