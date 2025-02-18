@@ -256,10 +256,10 @@ void studento_duomenu_skaitymas_is_failo(){
         }
     }
    cout << "Failas atidarytas sekmingai!" << endl;
-   duomenu_is_failo_susirasymas(studentai, failo_pavadinimas);
+   studento_duomenu_is_failo_susirasymas(studentai, failo_pavadinimas);
 
 }
-void duomenu_is_failo_susirasymas(vector<Studentas> &studentai, string& failo_pavadinimas){
+void studento_duomenu_is_failo_susirasymas(vector<Studentas> &studentai, string& failo_pavadinimas){
    auto pradzia = std::chrono::high_resolution_clock::now();
 
    ifstream failas(failo_pavadinimas);
@@ -363,7 +363,7 @@ void surasoma_ranka_isskyrus_pazymius(){
    studentai.push_back(laikinas_studentas);
 }
 void viskas_generuojama_atsitiktinai(){
-    
+
     Studentas laikinas_studentas;
     
     studento_vardo_ir_pavardes_generavimas(laikinas_studentas); 
