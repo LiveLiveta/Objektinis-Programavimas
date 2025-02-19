@@ -1,6 +1,6 @@
 #include "pagalbines.h"
-#ifndef functions_h
-#define functions_h
+#ifndef FUNKCIJOS_H
+#define FUNKCIJOS_H
 
 struct Studentas {
     string pavarde;
@@ -11,7 +11,6 @@ struct Studentas {
     double  mediana;
 };
 
-extern const int PRADINIS_DYDIS;
 extern int studentu_kiekis;
 extern vector<string> vardai;
 extern vector<string> pavardes;

@@ -1,11 +1,9 @@
 #include "pagalbines.h"
 #include "funkcijos.h"
 
-const int PRADINIS_DYDIS = 10;
 int studentu_kiekis = 0;
 vector<string> vardai = { "Mantas", "Lukas", "Dominykas", "Kajus", "Dovydas", "Rokas", "Emilis", "Tadas", "Benas", "Jokubas"};
 vector<string> pavardes ={ "Kazlauskas", "Petrauskas", "Jankauskas", "Baliunas", "Vaiciulis", "Stankevicius", "Jonaitis", "Urbonas", "Zabielskas", "Paulauskas"};
-
 vector<Studentas> studentai;
 vector<double> operaciju_laikai;
 int operaciju_kiekis = 0;
