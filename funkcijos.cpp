@@ -17,10 +17,15 @@ void studento_duomenu_gavimas(){
                 cout << endl << "Operacija vidutiniskai uztruko: " << laiku_vidurkio_skaiciavimas(operaciju_laikai) << " s" << endl;
                 break;
             } else {
-                cout << endl << "Pasirinkite veiksma is meniu! " << endl;
+                // cout << endl << "Pasirinkite veiksma is meniu! " << endl;
+                throw runtime_error("\nPasirinkite veiksma is meniu! \n");
+
             }
         }catch(exception &eroras){
             cout <<"Klaida: " <<eroras.what()<< endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            
         }
    }
 }
