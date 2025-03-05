@@ -1,5 +1,60 @@
 #include "funkcijos.h"
 
+void studentu_failu_generavimas(){
+
+    int failo_generavimo_pasirinkimas;
+    cout << "pasirinkite koki faila norite sugeneruoti: " << endl;
+    cout << "1 - su 1000 studentu" << endl << "2 - su 10000 studentu" << endl << "3 - su 100000 studentu" << endl << "4 - su 1000000 studentu" << endl << "5 - su 10000000 studentu" << endl;
+    cin >> failo_generavimo_pasirinkimas;
+
+    if (!cin.fail() && failo_generavimo_pasirinkimas >= 1 && failo_generavimo_pasirinkimas <= 5){
+        int pazymiu_kiekis;
+        cout << "Iveskite kiek pazymiu tures studentai (nuo 1 iki 30): " << endl;
+        cin >> pazymiu_kiekis;
+
+        while (cin.fail() || pazymiu_kiekis < 1 || pazymiu_kiekis > 30){
+            cout << "Iveskite kiek pazymiu tures studentai (nuo 1 iki 30): " << endl;
+            cin >> pazymiu_kiekis;
+        }
+        studentu_kiekis = pasirinkimo_pavertimas_i_reiksme(failo_generavimo_pasirinkimas);
+        failo_generavimas(studentu_kiekis, pazymiu_kiekis);
+        return;
+    }
+    studentu_failu_generavimas();
+}
+float pasirinkimo_pavertimas_i_reiksme(int failo_generavimo_pasirinkimas){
+    if (failo_generavimo_pasirinkimas == 1){
+        return 1000;
+    } else if (failo_generavimo_pasirinkimas == 2){
+        return 10000;
+    } else if (failo_generavimo_pasirinkimas == 3){
+        return 100000;
+    } else if (failo_generavimo_pasirinkimas == 4){
+        return 1000000;
+    } else{
+        return 10000000;
+    }
+}
+
+void failo_generavimas(int studentu_kiekis, int pazymiu_kiekis){
+    string failo_pavadinimo_pabaiga = ".txt";
+    string failo_pavadinimas = "studentai" + to_string(studentu_kiekis) + failo_pavadinimo_pabaiga;
+
+
+    ofstream failas (failo_pavadinimas);
+    for (int i = 0; i < studentu_kiekis; i++){
+        failas << setw(13) << left << ("Vardas_N" + to_string(i + 1)) << setw(13) << left << ("Pavarde_N" + to_string(i + 1));
+        for (int i = 0 ; i < pazymiu_kiekis; i++){
+            failas << setw(8) << left << vieno_pazymio_sugeneravimas();
+        }
+        failas << endl;
+    }
+}
+int vieno_pazymio_sugeneravimas(){
+    int pazymys = (rand()%10)+1;
+    return pazymys;
+}
+
 void studento_duomenu_gavimas(){
     while(true){
         try{
@@ -13,6 +68,8 @@ void studento_duomenu_gavimas(){
             } else if (duomenu_surasymo_pasirinkimas == 4){
                 studento_duomenu_skaitymas_is_failo();
             } else if (duomenu_surasymo_pasirinkimas == 5){
+                studentu_failu_generavimas();
+            } else if (duomenu_surasymo_pasirinkimas == 6){
                 cout << "Atlikta operaciju: " << operaciju_kiekis << endl;
                 cout << endl << "Operacija vidutiniskai uztruko: " << laiku_vidurkio_skaiciavimas(operaciju_laikai) << " s" << endl;
                 break;
@@ -29,7 +86,7 @@ void studento_duomenu_gavimas(){
 int studento_duomenu_surasymo_pasirinkimas(){
     int duomenu_surasymo_pasirinkimas;
     cout << endl << "Pasirinkite norima duomenu surasymo buda is galimu variantu: "<< endl;
-    cout << "1 - ranka," <<endl << "2 - generuoti pazymius," << endl << "3 - generuoti ir pazymius ir studentu vardus, pavardes," << endl << "4 - skaityti duomenis is failo," << endl << "5 - baigti darba" << endl;
+    cout << "1 - ranka," <<endl << "2 - generuoti pazymius," << endl << "3 - generuoti ir pazymius ir studentu vardus, pavardes," << endl << "4 - skaityti duomenis is failo," << endl  <<"5 - generuoti faila" << endl << "6 - baigti darba" << endl;
     cout << "Jusu pasirinkimas: ";
     cin >> duomenu_surasymo_pasirinkimas;
     cout << endl;
@@ -301,7 +358,6 @@ void tikrinimas_ar_pavyko_atidaryti_faila(string& failo_pavadinimas){
 }
 
 void studento_vardo_ir_pavardes_generavimas(Studentas &laikinas_studentas){
-   srand(time(0));
    int vardo_indeksas = (rand()%10);
    int pavardes_indeksas = (rand()%10);
 

@@ -18,6 +18,11 @@ extern vector<Studentas> studentai;
 extern vector<double> operaciju_laikai;
 extern int operaciju_kiekis;
 
+void studentu_failu_generavimas();
+float pasirinkimo_pavertimas_i_reiksme(int failo_generavimo_pasirinkimas);
+void failo_generavimas(int studentu_kiekis, int pazymiu_kiekis);
+int vieno_pazymio_sugeneravimas();
+
 void studento_duomenu_gavimas();
 int studento_duomenu_surasymo_pasirinkimas();
 double laiku_vidurkio_skaiciavimas(vector<double> &operaciju_laikai);
