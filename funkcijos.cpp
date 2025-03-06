@@ -35,15 +35,21 @@ float pasirinkimo_pavertimas_i_reiksme(int failo_generavimo_pasirinkimas){
         return 10000000;
     }
 }
-
 void failo_generavimas(int studentu_kiekis, int pazymiu_kiekis){
     string failo_pavadinimo_pabaiga = ".txt";
     string failo_pavadinimas = "studentai" + to_string(studentu_kiekis) + failo_pavadinimo_pabaiga;
 
 
     ofstream failas (failo_pavadinimas);
+    failas << setw(18) << left << ("Vardas") << setw(18) << left << ("Pavarde");
+
+    for (int i = 1; i < pazymiu_kiekis; i++){
+        failas << setw(8) << left << ("ND" + to_string(i));
+    }
+    failas << setw(8) << left << ("Egz.") << endl;
+
     for (int i = 0; i < studentu_kiekis; i++){
-        failas << setw(13) << left << ("Vardas_N" + to_string(i + 1)) << setw(13) << left << ("Pavarde_N" + to_string(i + 1));
+        failas << setw(18) << left << ("Vardas_N" + to_string(i + 1)) << setw(18) << left << ("Pavarde_N" + to_string(i + 1));
         for (int i = 0 ; i < pazymiu_kiekis; i++){
             failas << setw(8) << left << vieno_pazymio_sugeneravimas();
         }
@@ -55,7 +61,52 @@ int vieno_pazymio_sugeneravimas(){
     return pazymys;
 }
 
-void studento_duomenu_gavimas(){
+void studentu_rusiavimas_i_dvi_dalis(){
+    vector<Studentas> visi;
+    vector<Studentas> vargsiukai;
+    vector<Studentas> kietiakiai;
+
+    // auto skaitymo_pradzia = std::chrono::high_resolution_clock::now();
+
+    studento_duomenu_skaitymas_is_failo(visi);
+
+    // auto skaitymo_pabaiga = std::chrono::high_resolution_clock::now();
+    // std::chrono::duration<double> skaitymo_trukme = skaitymo_pabaiga - skaitymo_pradzia;
+    // cout << endl << "Duomenu nuskaitymas is failo uztruko: " << skaitymo_trukme.count() << " s" << endl;
+
+    studento_vidurkio_skaiciavimas(visi);
+
+    auto isskirstymo_pradzia = std::chrono::high_resolution_clock::now();
+
+    for (int i = 0; i < (visi.size()); i++){
+        if (visi[i].vidurkis >= 5){
+            kietiakiai.push_back(visi[i]);
+        } else{
+            vargsiukai.push_back(visi[i]);
+        }
+    }
+    auto isskirstymo_pabaiga = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> isskirstymo_trukme = isskirstymo_pabaiga - isskirstymo_pradzia;
+    cout << endl << "Duomenu isskirstymas i kietiakus ir vargsiukus uztruko: " << isskirstymo_trukme.count() << " s" << endl;
+
+
+    string failo_pavadinimo_pabaiga = ".txt";
+    string failo_pavadinimas_kieti = "kietiakiai" + to_string(kietiakiai.size()) + failo_pavadinimo_pabaiga;
+    string failo_pavadinimas_vargsai = "vargsiukai" + to_string(vargsiukai.size()) + failo_pavadinimo_pabaiga;
+
+    auto surasymo_pradzia = std::chrono::high_resolution_clock::now();
+
+    duomenu_surasymas_i_faila(kietiakiai, failo_pavadinimas_kieti, kietiakiai.size());
+    duomenu_surasymas_i_faila(vargsiukai, failo_pavadinimas_vargsai, vargsiukai.size());
+    
+    auto surasymo_pabaiga = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> surasymo_trukme = surasymo_pabaiga - surasymo_pradzia;
+    cout << endl << "Duomenu surasymas i atskirus failus uztruko: " << surasymo_trukme.count() << " s" << endl;
+}
+void testu_laiku_skaiciavimas(){
+     studentu_rusiavimas_i_dvi_dalis();
+}
+void studento_duomenu_gavimas(vector<Studentas>& studentai){
     while(true){
         try{
             int  duomenu_surasymo_pasirinkimas = studento_duomenu_surasymo_pasirinkimas();
@@ -66,10 +117,12 @@ void studento_duomenu_gavimas(){
             } else if (duomenu_surasymo_pasirinkimas == 3){
                 viskas_generuojama_atsitiktinai();
             } else if (duomenu_surasymo_pasirinkimas == 4){
-                studento_duomenu_skaitymas_is_failo();
+                studento_duomenu_skaitymas_is_failo(studentai);
             } else if (duomenu_surasymo_pasirinkimas == 5){
                 studentu_failu_generavimas();
-            } else if (duomenu_surasymo_pasirinkimas == 6){
+            } else if  (duomenu_surasymo_pasirinkimas == 6){
+                testu_laiku_skaiciavimas();
+            } else if(duomenu_surasymo_pasirinkimas == 7){
                 cout << "Atlikta operaciju: " << operaciju_kiekis << endl;
                 cout << endl << "Operacija vidutiniskai uztruko: " << laiku_vidurkio_skaiciavimas(operaciju_laikai) << " s" << endl;
                 break;
@@ -86,7 +139,7 @@ void studento_duomenu_gavimas(){
 int studento_duomenu_surasymo_pasirinkimas(){
     int duomenu_surasymo_pasirinkimas;
     cout << endl << "Pasirinkite norima duomenu surasymo buda is galimu variantu: "<< endl;
-    cout << "1 - ranka," <<endl << "2 - generuoti pazymius," << endl << "3 - generuoti ir pazymius ir studentu vardus, pavardes," << endl << "4 - skaityti duomenis is failo," << endl  <<"5 - generuoti faila" << endl << "6 - baigti darba" << endl;
+    cout << "1 - ranka," <<endl << "2 - generuoti pazymius," << endl << "3 - generuoti ir pazymius ir studentu vardus, pavardes," << endl << "4 - skaityti duomenis is failo," << endl  <<"5 - generuoti faila" << endl << "6 - atlikti pasirinkto failo testus" << endl << "7 - baigti darba" << endl;
     cout << "Jusu pasirinkimas: ";
     cin >> duomenu_surasymo_pasirinkimas;
     cout << endl;
@@ -105,6 +158,9 @@ double laiku_vidurkio_skaiciavimas(vector<double> &operaciju_laikai){
 }
 
 void studento_duomenu_printinimas(vector<Studentas> &studentai){
+    if (studentai.size() == 0){
+        return;
+    }
    string irasimo_budas;
    cout << "Duomenis norite matyti e - Ekrane ar  f - Faile? " << endl;
    cin >> irasimo_budas;
@@ -133,13 +189,17 @@ void studento_duomenu_printinimas(vector<Studentas> &studentai){
            cout << setw(13) << left << studentai[i].vardas << setw(12) << left << studentai[i].pavarde << setw(20) << left << fixed << setprecision(2) << studentai[i].vidurkis << setw(20) << studentai[i].mediana << endl;
            }  
    }else if (irasimo_budas == "f"){
-       ofstream failas(failo_pavadinimas);
-       failas << setw(13) << left << "Vardas" << setw(12) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.)" << setw(20) << left << "Galutinis (Med.)" <<endl;
-       failas << "--------------------------------------------------------------" << endl;
-       for (int i = 0; i < studentu_kiekis; i ++){
-           failas << setw(13) << left << studentai[i].vardas << setw(12) << left << studentai[i].pavarde << setw(20) << left << fixed << setprecision(2) << studentai[i].vidurkis << setw(20) << studentai[i].mediana << endl;
-           } 
+        duomenu_surasymas_i_faila(studentai, failo_pavadinimas, studentu_kiekis);
    }
+}
+void duomenu_surasymas_i_faila(vector<Studentas> studentai, string failo_pavadinimas, int studentu_kiekis){
+    ofstream failas(failo_pavadinimas);
+    failas << setw(13) << left << "Vardas" << setw(12) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.)" << setw(20) << left << "Galutinis (Med.)" <<endl;
+    failas << "--------------------------------------------------------------" << endl;
+    for (int i = 0; i < studentu_kiekis; i ++){
+        failas << setw(13) << left << studentai[i].vardas << setw(12) << left << studentai[i].pavarde << setw(20) << left << fixed << setprecision(2) << studentai[i].vidurkis << setw(20) << studentai[i].mediana << endl;
+        }
+    failas.close(); 
 }
 void studento_duomenu_rikiavimas(vector<Studentas> &studentai){
    int rusiuoti_pagal;
@@ -300,7 +360,7 @@ void studento_egzamino_pazymio_gavimas(Studentas &laikinas_studentas){
    laikinas_studentas.egzamino_pazymys = egzamino_pazymys;
 }
 
-void studento_duomenu_skaitymas_is_failo(){
+void studento_duomenu_skaitymas_is_failo(vector<Studentas>& studentai){
    string failo_pavadinimas;
    cout << "Iveskite norimo nuskaityti failo pavadinima: " << endl;
    cin >> failo_pavadinimas;
@@ -344,10 +404,8 @@ void studento_duomenu_is_failo_susirasymas(vector<Studentas> &studentai, string&
    
    auto pabaiga = std::chrono::high_resolution_clock::now();
    std::chrono::duration<double> trukme = pabaiga - pradzia;
-   cout << endl << "Operacija uztruko: " << trukme.count() << " s" << endl;
+   cout << endl << "duomenu is failo nuskaitymas uztruko: " << trukme.count() << " s" << endl;
    operaciju_laikai.push_back(trukme.count());
-
-   cout << "Duomenys nuskaityti sekmingai!" << endl;
 }
 void tikrinimas_ar_pavyko_atidaryti_faila(string& failo_pavadinimas){
 

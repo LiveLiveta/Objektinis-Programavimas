@@ -22,11 +22,13 @@ void studentu_failu_generavimas();
 float pasirinkimo_pavertimas_i_reiksme(int failo_generavimo_pasirinkimas);
 void failo_generavimas(int studentu_kiekis, int pazymiu_kiekis);
 int vieno_pazymio_sugeneravimas();
+void studentu_rusiavimas_i_dvi_dalis();
 
-void studento_duomenu_gavimas();
+void studento_duomenu_gavimas(vector<Studentas> &studentai);
 int studento_duomenu_surasymo_pasirinkimas();
 double laiku_vidurkio_skaiciavimas(vector<double> &operaciju_laikai);
 
+void duomenu_surasymas_i_faila(vector<Studentas> studentai, string failo_pavadinimas,int studentu_kiekis);
 void studento_duomenu_printinimas(vector<Studentas> &studentai);
 void studento_duomenu_rikiavimas(vector<Studentas> &studentai);
 bool rikiuoti_pagal_varda(Studentas &a, Studentas &b);
@@ -42,7 +44,7 @@ void studento_vardo_ir_pavardes_gavimas(Studentas &laikinas_studentas);
 void studento_pazymiu_gavimas(Studentas &laikinas_studentas);
 void studento_egzamino_pazymio_gavimas(Studentas &laikinas_studentas);
 
-void studento_duomenu_skaitymas_is_failo();
+void studento_duomenu_skaitymas_is_failo(vector<Studentas> &studentai);
 void studento_duomenu_is_failo_susirasymas(vector<Studentas> &studentai, string& failo_pavadinimas);
 void tikrinimas_ar_pavyko_atidaryti_faila(string& failo_pavadinimas);
 

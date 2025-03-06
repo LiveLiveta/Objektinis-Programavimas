@@ -9,7 +9,7 @@ vector<double> operaciju_laikai;
 int operaciju_kiekis = 0;
 
 int main(){
-    studento_duomenu_gavimas();
+    studento_duomenu_gavimas(studentai);
     studento_duomenu_printinimas(studentai);
     return 0;
 }
