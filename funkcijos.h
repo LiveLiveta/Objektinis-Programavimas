@@ -23,6 +23,8 @@ float pasirinkimo_pavertimas_i_reiksme(int failo_generavimo_pasirinkimas);
 void failo_generavimas(int studentu_kiekis, int pazymiu_kiekis);
 int vieno_pazymio_sugeneravimas();
 void studentu_rusiavimas_i_dvi_dalis();
+void duomenu_surasymas_i_faila_kieti_vargsai(vector<Studentas> studentai, string failo_pavadinimas,int studentu_kiekis);
+void testu_laiku_skaiciavimas();
 
 void studento_duomenu_gavimas(vector<Studentas> &studentai);
 int studento_duomenu_surasymo_pasirinkimas();

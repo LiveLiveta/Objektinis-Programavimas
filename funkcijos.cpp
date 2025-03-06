@@ -39,7 +39,6 @@ void failo_generavimas(int studentu_kiekis, int pazymiu_kiekis){
     string failo_pavadinimo_pabaiga = ".txt";
     string failo_pavadinimas = "studentai" + to_string(studentu_kiekis) + failo_pavadinimo_pabaiga;
 
-
     ofstream failas (failo_pavadinimas);
     failas << setw(18) << left << ("Vardas") << setw(18) << left << ("Pavarde");
 
@@ -66,14 +65,7 @@ void studentu_rusiavimas_i_dvi_dalis(){
     vector<Studentas> vargsiukai;
     vector<Studentas> kietiakiai;
 
-    // auto skaitymo_pradzia = std::chrono::high_resolution_clock::now();
-
     studento_duomenu_skaitymas_is_failo(visi);
-
-    // auto skaitymo_pabaiga = std::chrono::high_resolution_clock::now();
-    // std::chrono::duration<double> skaitymo_trukme = skaitymo_pabaiga - skaitymo_pradzia;
-    // cout << endl << "Duomenu nuskaitymas is failo uztruko: " << skaitymo_trukme.count() << " s" << endl;
-
     studento_vidurkio_skaiciavimas(visi);
 
     auto isskirstymo_pradzia = std::chrono::high_resolution_clock::now();
@@ -96,12 +88,31 @@ void studentu_rusiavimas_i_dvi_dalis(){
 
     auto surasymo_pradzia = std::chrono::high_resolution_clock::now();
 
-    duomenu_surasymas_i_faila(kietiakiai, failo_pavadinimas_kieti, kietiakiai.size());
-    duomenu_surasymas_i_faila(vargsiukai, failo_pavadinimas_vargsai, vargsiukai.size());
+    duomenu_surasymas_i_faila_kieti_vargsai(kietiakiai, failo_pavadinimas_kieti, kietiakiai.size());
+    duomenu_surasymas_i_faila_kieti_vargsai(vargsiukai, failo_pavadinimas_vargsai, vargsiukai.size());
     
     auto surasymo_pabaiga = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> surasymo_trukme = surasymo_pabaiga - surasymo_pradzia;
     cout << endl << "Duomenu surasymas i atskirus failus uztruko: " << surasymo_trukme.count() << " s" << endl;
+}
+void duomenu_surasymas_i_faila_kieti_vargsai(vector<Studentas> studentai, string failo_pavadinimas, int studentu_kiekis){
+
+    ofstream failas (failo_pavadinimas);
+    failas << setw(18) << left << ("Vardas") << setw(18) << left << ("Pavarde");
+
+    for (int i = 1; i < studentai[i].pazymiai.size(); i++){
+        failas << setw(8) << left << ("ND" + to_string(i));
+    }
+    failas << setw(8) << left << ("Egz.") << endl;
+
+    for (int i = 0; i < studentu_kiekis; i ++){
+        failas << setw(18) << left << studentai[i].vardas << setw(18) << left << studentai[i].pavarde;
+        for (int j = 0 ; j < studentai[j].pazymiai.size(); j++){
+            failas << setw(8) << left << studentai[i].pazymiai[j];
+        }
+        failas << endl;
+    }
+    failas.close();
 }
 void testu_laiku_skaiciavimas(){
      studentu_rusiavimas_i_dvi_dalis();
@@ -194,7 +205,7 @@ void studento_duomenu_printinimas(vector<Studentas> &studentai){
 }
 void duomenu_surasymas_i_faila(vector<Studentas> studentai, string failo_pavadinimas, int studentu_kiekis){
     ofstream failas(failo_pavadinimas);
-    failas << setw(13) << left << "Vardas" << setw(12) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.)" << setw(20) << left << "Galutinis (Med.)" <<endl;
+    failas << setw(18) << left << "Vardas" << setw(18) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.)" << setw(20) << left << "Galutinis (Med.)" <<endl;
     failas << "--------------------------------------------------------------" << endl;
     for (int i = 0; i < studentu_kiekis; i ++){
         failas << setw(13) << left << studentai[i].vardas << setw(12) << left << studentai[i].pavarde << setw(20) << left << fixed << setprecision(2) << studentai[i].vidurkis << setw(20) << studentai[i].mediana << endl;
