@@ -12,7 +12,7 @@ vector<string> pavardes ={ "Kazlauskas", "Petrauskas", "Jankauskas", "Baliunas",
     };
 
     vector<Studentas> studentai;
-    srand(time(0));
+    srand(time(nullptr));
 
     void studento_duomenu_gavimas(vector<Studentas> &studentai);
     void studento_duomenu_printinimas(vector<Studentas> studentai);

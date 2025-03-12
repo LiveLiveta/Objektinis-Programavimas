@@ -1,6 +1,6 @@
 #include "funkcijos.h"
 
-void studentu_failu_generavimas(){
+void failo_su_studentais_generavimas(){
 
     int failo_generavimo_pasirinkimas;
     cout << "pasirinkite koki faila norite sugeneruoti: " << endl;
@@ -24,7 +24,7 @@ void studentu_failu_generavimas(){
     }
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');    
-    studentu_failu_generavimas();
+    failo_su_studentais_generavimas();
 }
 int pasirinkimo_pavertimas_i_reiksme(int failo_generavimo_pasirinkimas){
     if (failo_generavimo_pasirinkimas == 1){
@@ -72,7 +72,7 @@ int vieno_pazymio_sugeneravimas(){
     return pazymys;
 }
 
-void studentu_rusiavimas_i_dvi_dalis(){
+void studentu_rusiavimas_i_kietus_ir_vargsus_ir_testai(){
     vector<Studentas> visi;
     vector<Studentas> vargsiukai;
     vector<Studentas> kietiakiai;
@@ -100,14 +100,14 @@ void studentu_rusiavimas_i_dvi_dalis(){
 
     auto surasymo_pradzia = std::chrono::high_resolution_clock::now();
 
-    duomenu_surasymas_i_faila_kieti_vargsai(kietiakiai, failo_pavadinimas_kieti);
-    duomenu_surasymas_i_faila_kieti_vargsai(vargsiukai, failo_pavadinimas_vargsai);
+    studentu_is_vektoriaus_surasymas_i_faila(kietiakiai, failo_pavadinimas_kieti);
+    studentu_is_vektoriaus_surasymas_i_faila(vargsiukai, failo_pavadinimas_vargsai);
     
     auto surasymo_pabaiga = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> surasymo_trukme = surasymo_pabaiga - surasymo_pradzia;
     cout << endl << "Duomenu surasymas i atskirus failus uztruko: " << surasymo_trukme.count() << " s" << endl;
 }
-void duomenu_surasymas_i_faila_kieti_vargsai(vector<Studentas> studentai, string failo_pavadinimas){
+void studentu_is_vektoriaus_surasymas_i_faila(vector<Studentas> studentai, string failo_pavadinimas){
 
     ofstream failas (failo_pavadinimas);
     failas << setw(18) << left << ("Vardas") << setw(18) << left << ("Pavarde");
@@ -140,9 +140,9 @@ void studento_duomenu_gavimas(vector<Studentas>& studentai){
             } else if (duomenu_surasymo_pasirinkimas == 4){
                 studento_duomenu_skaitymas_is_failo(studentai);
             } else if (duomenu_surasymo_pasirinkimas == 5){
-                studentu_failu_generavimas();
+                failo_su_studentais_generavimas();
             } else if  (duomenu_surasymo_pasirinkimas == 6){
-                studentu_rusiavimas_i_dvi_dalis();
+                studentu_rusiavimas_i_kietus_ir_vargsus_ir_testai();
             } else if(duomenu_surasymo_pasirinkimas == 7){
                 cout << "Atlikta operaciju: " << operaciju_kiekis << endl;
                 cout << endl << "Operacija vidutiniskai uztruko: " << laiku_vidurkio_skaiciavimas(operaciju_laikai) << " s" << endl;
@@ -168,6 +168,11 @@ int studento_duomenu_surasymo_pasirinkimas(){
  }
 double laiku_vidurkio_skaiciavimas(vector<double> &operaciju_laikai){
    int operaciju_kiekis = operaciju_laikai.size();
+
+    if (operaciju_kiekis == 0){
+        return 0;
+    }
+
    double visas_laikas = 0;
 
    for (int i = 0; i < operaciju_kiekis; i++){
@@ -218,7 +223,7 @@ void duomenu_surasymas_i_faila(vector<Studentas> studentai, string failo_pavadin
     failas << setw(18) << left << "Vardas" << setw(18) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.)" << setw(20) << left << "Galutinis (Med.)" <<endl;
     failas << "--------------------------------------------------------------" << endl;
     for (int i = 0; i < studentai.size(); i ++){
-        failas << setw(13) << left << studentai[i].vardas << setw(12) << left << studentai[i].pavarde << setw(20) << left << fixed << setprecision(2) << studentai[i].vidurkis << setw(20) << studentai[i].mediana << endl;
+        failas << setw(18) << left << studentai[i].vardas << setw(18) << left << studentai[i].pavarde << setw(20) << left << fixed << setprecision(2) << studentai[i].vidurkis << setw(20) << studentai[i].mediana << endl;
         }
     failas.close(); 
 }
@@ -265,9 +270,9 @@ void studento_duomenu_rikiavimas(vector<Studentas> &studentai){
 }
 bool rikiuoti_pagal_varda(Studentas &a, Studentas &b){
 
-   if (a.vardas.substr(0, 6) == "Vardas" && b.vardas.substr(0, 6) == "Vardas"){
-       int sk1 = stoi(a.vardas.substr(6));
-       int sk2 = stoi(b.vardas.substr(6));
+   if (a.vardas.substr(0, 8) == "Vardas_N" && b.vardas.substr(0, 8) == "Vardas_N"){
+       int sk1 = stoi(a.vardas.substr(8));
+       int sk2 = stoi(b.vardas.substr(8));
        return sk1 < sk2;
    }
    string vardas_a = a.vardas;
@@ -277,9 +282,9 @@ bool rikiuoti_pagal_varda(Studentas &a, Studentas &b){
    return vardas_a < vardas_b;
 }
 bool rikiuoti_pagal_pavarde(Studentas &a, Studentas &b){
-   if (a.pavarde.substr(0, 7) == "Pavarde" && b.pavarde.substr(0, 7) == "Pavarde"){
-       int sk1 = stoi(a.pavarde.substr(7));
-       int sk2 = stoi(b.pavarde.substr(7));
+   if (a.pavarde.substr(0, 9) == "Pavarde_N" && b.pavarde.substr(0, 9) == "Pavarde_N"){
+       int sk1 = stoi(a.pavarde.substr(9));
+       int sk2 = stoi(b.pavarde.substr(9));
        return sk1 < sk2;
    }
    string pavarde_a = a.pavarde;
@@ -448,7 +453,6 @@ void studento_vardo_ir_pavardes_generavimas(Studentas &laikinas_studentas){
 }
 void studento_pazymiu_ir_egzaminu_generavimas(Studentas &laikinas_studentas){
    
-   srand(time(0));
    int pazymiu_kiekis = gauk_kiek_pazimiu_sugeneruoti();
 
    for (int i = 0; i < pazymiu_kiekis; i++){
