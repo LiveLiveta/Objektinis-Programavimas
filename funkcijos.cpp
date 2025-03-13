@@ -100,31 +100,16 @@ void studentu_rusiavimas_i_kietus_ir_vargsus_ir_testai(){
 
     auto surasymo_pradzia = std::chrono::high_resolution_clock::now();
 
-    studentu_is_vektoriaus_surasymas_i_faila(kietiakiai, failo_pavadinimas_kieti);
-    studentu_is_vektoriaus_surasymas_i_faila(vargsiukai, failo_pavadinimas_vargsai);
+    studento_vidurkio_skaiciavimas(kietiakiai);
+    studento_vidurkio_skaiciavimas(vargsiukai);
+    studento_medianos_skaiciavimas(kietiakiai);
+    studento_medianos_skaiciavimas(vargsiukai);
+    duomenu_surasymas_i_faila(kietiakiai, failo_pavadinimas_kieti);
+    duomenu_surasymas_i_faila(vargsiukai, failo_pavadinimas_vargsai);
     
     auto surasymo_pabaiga = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> surasymo_trukme = surasymo_pabaiga - surasymo_pradzia;
     cout << endl << "Duomenu surasymas i atskirus failus uztruko: " << surasymo_trukme.count() << " s" << endl;
-}
-void studentu_is_vektoriaus_surasymas_i_faila(vector<Studentas> studentai, string failo_pavadinimas){
-
-    ofstream failas (failo_pavadinimas);
-    failas << setw(18) << left << ("Vardas") << setw(18) << left << ("Pavarde");
-
-    for (int i = 1; i < studentai[i].pazymiai.size(); i++){
-        failas << setw(8) << left << ("ND" + to_string(i));
-    }
-    failas << setw(8) << left << ("Egz.") << endl;
-
-    for (int i = 0; i < studentai.size(); i ++){
-        failas << setw(18) << left << studentai[i].vardas << setw(18) << left << studentai[i].pavarde;
-        for (int j = 0 ; j < studentai[j].pazymiai.size(); j++){
-            failas << setw(8) << left << studentai[i].pazymiai[j];
-        }
-        failas << endl;
-    }
-    failas.close();
 }
 
 void studento_duomenu_gavimas(vector<Studentas>& studentai){
