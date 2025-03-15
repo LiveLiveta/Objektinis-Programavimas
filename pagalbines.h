@@ -12,6 +12,11 @@
 #include <functional>
 #include <cctype>
 #include <chrono>
+#include <list>
+#include <deque>
+
+#include <iterator> 
+#include <type_traits>
 
 using std:: cout;
 using std:: cin;
@@ -43,3 +48,6 @@ using std:: invalid_argument;
 using std:: runtime_error;
 using std:: exception;
 using std:: to_string;
+using std:: list;
+using std:: deque;
+using std:: is_same_v;
