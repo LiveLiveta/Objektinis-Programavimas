@@ -217,11 +217,11 @@ void strategija_1(){
     duomenu_surasymas_i_faila(vargsiukai, failo_pavadinimas_vargsai);   
 }
 
+template <typename konteineris>
 void strategija_2(){
     
     konteineris visi;
     konteineris vargsiukai;
-    konteineris kietiakiai;
 
     studento_duomenu_skaitymas_is_failo(visi);
     studento_vidurkio_skaiciavimas(visi);
@@ -240,11 +240,12 @@ void strategija_2(){
 
     auto isskirstymo_pradzia = std::chrono::high_resolution_clock::now();
 
-    for (auto it = visi.begin(); it != visi.end(); ++it) {
-        if (it->vidurkis >= 5) {
-            kietiakiai.push_back(*it);
-        } else {
-            vargsiukai.push_back(*it); 
+    for (auto it = visi.begin(); it != visi.end();) {
+        if (it->vidurkis < 5) {
+            vargsiukai.push_back(*it);
+            it = visi.erase(it);
+        }else{
+            ++it;
         }
     }
     
@@ -254,17 +255,18 @@ void strategija_2(){
 
 
     string failo_pavadinimo_pabaiga = ".txt";
-    string failo_pavadinimas_kieti = "kietiakiai" + to_string(kietiakiai.size()) + failo_pavadinimo_pabaiga;
+    string failo_pavadinimas_kieti = "kietiakiai" + to_string(visi.size()) + failo_pavadinimo_pabaiga;
     string failo_pavadinimas_vargsai = "vargsiukai" + to_string(vargsiukai.size()) + failo_pavadinimo_pabaiga;
 
-    studento_vidurkio_skaiciavimas(kietiakiai);
+    studento_vidurkio_skaiciavimas(visi);
     studento_vidurkio_skaiciavimas(vargsiukai);
-    studento_medianos_skaiciavimas(kietiakiai);
+    studento_medianos_skaiciavimas(visi);
     studento_medianos_skaiciavimas(vargsiukai);
-    duomenu_surasymas_i_faila(kietiakiai, failo_pavadinimas_kieti);
+    duomenu_surasymas_i_faila(visi, failo_pavadinimas_kieti);
     duomenu_surasymas_i_faila(vargsiukai, failo_pavadinimas_vargsai);   
 }
 
+template <typename konteineris>
 void strategija_3(){
     
     konteineris visi;
