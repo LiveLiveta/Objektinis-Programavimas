@@ -22,13 +22,11 @@ void failo_su_studentais_generavimas();
 int pasirinkimo_pavertimas_i_reiksme(int failo_generavimo_pasirinkimas);
 void failo_generavimas(int studentu_kiekis, int pazymiu_kiekis);
 int vieno_pazymio_sugeneravimas();
-// void studentu_rusiavimas_i_kietus_ir_vargsus_ir_testai();
 
 void studento_duomenu_gavimas(vector<Studentas> &studentai);
 int studento_duomenu_surasymo_pasirinkimas();
 double laiku_vidurkio_skaiciavimas(vector<double> &operaciju_laikai);
 
-// void duomenu_surasymas_i_faila(vector<Studentas> studentai, string failo_pavadinimas);
 void studento_duomenu_printinimas(vector<Studentas> &studentai);
 void studento_duomenu_rikiavimas(vector<Studentas> &studentai);
 bool rikiuoti_pagal_varda(Studentas &a, Studentas &b);
@@ -37,15 +35,10 @@ bool rikiuoti_pagal_vidurkis(Studentas &a, Studentas &b);
 bool rikiuoti_pagal_mediana(Studentas &a, Studentas &b);
 bool baigiasi_su_txt(string failo_pavadinimas);
 
-// void studento_vidurkio_skaiciavimas(vector<Studentas> &studentai);
-// void studento_medianos_skaiciavimas(vector<Studentas> &studentai);
-
 void studento_vardo_ir_pavardes_gavimas(Studentas &laikinas_studentas);
 void studento_pazymiu_gavimas(Studentas &laikinas_studentas);
 void studento_egzamino_pazymio_gavimas(Studentas &laikinas_studentas);
 
-// void studento_duomenu_skaitymas_is_failo(vector<Studentas> &studentai);
-// void studento_duomenu_is_failo_susirasymas(vector<Studentas> &studentai, string& failo_pavadinimas);
 void tikrinimas_ar_pavyko_atidaryti_faila(string& failo_pavadinimas);
 
 void studento_pazymiu_ir_egzaminu_generavimas(Studentas &laikinas_studentas);
@@ -285,7 +278,6 @@ void strategija_3(){
 
     auto isskirstymo_pradzia = std::chrono::high_resolution_clock::now();
     
-    // Partitioning students into two groups using stable_partition
     auto it = stable_partition(visi.begin(), visi.end(), [](const Studentas& s) {
         return s.vidurkis >= 5;
     });
