@@ -332,54 +332,6 @@ bool baigiasi_su_txt(string failo_pavadinimas){
    return false;
 }
 
-// void duomenu_surasymas_i_faila(vector<Studentas> studentai, string failo_pavadinimas){
-//     ofstream failas(failo_pavadinimas);
-//     failas << setw(18) << left << "Vardas" << setw(18) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.)" << setw(20) << left << "Galutinis (Med.)" <<endl;
-//     failas << "--------------------------------------------------------------" << endl;
-//     for (int i = 0; i < studentai.size(); i ++){
-//         failas << setw(18) << left << studentai[i].vardas << setw(18) << left << studentai[i].pavarde << setw(20) << left << fixed << setprecision(2) << studentai[i].vidurkis << setw(20) << studentai[i].mediana << endl;
-//         }
-//     failas.close(); 
-// }
-
-// void studento_vidurkio_skaiciavimas(vector<Studentas> &studentai){
-
-//    for (int i = 0; i < studentai.size(); i++){
-//        int pazymiu_suma = 0;
-//        int pazymiu_kiekis = studentai[i].pazymiai.size();
-   
-//        if (pazymiu_kiekis == 0){
-//            studentai[i].vidurkis = 0.6 * studentai[i].egzamino_pazymys;
-//        } else{ 
-//            for (int j = 0; j < pazymiu_kiekis; j++){
-//                pazymiu_suma += studentai[i].pazymiai[j];
-//            }
-//            double pazymiu_vidurkis = pazymiu_suma * 1.0 / pazymiu_kiekis;
-//            double vidurkis = 0.4 * pazymiu_vidurkis + 0.6 * studentai[i].egzamino_pazymys;
-//            studentai[i].vidurkis = vidurkis;
-//        }
-//    }
-// }
-// void studento_medianos_skaiciavimas(vector<Studentas> &studentai){
-//    for (int i = 0; i < studentai.size(); i++){
-//        int pazymiu_kiekis = studentai[i].pazymiai.size();
-//        if (pazymiu_kiekis == 0){
-//            studentai[i].mediana =  0.6 * studentai[i].egzamino_pazymys;
-//        }else{ 
-//            sort(studentai[i].pazymiai.begin(), studentai[i].pazymiai.end());
-//            double mediana;
-//            if(pazymiu_kiekis%2 == 0){
-//                mediana = (studentai[i].pazymiai[pazymiu_kiekis/2] + studentai[i].pazymiai[pazymiu_kiekis/2 -1]) / 2.0;
-//            } else{
-//                mediana = (studentai[i].pazymiai[pazymiu_kiekis/2]);
-//            }
-       
-//            double vidurkis = 0.4 * mediana + 0.6 * studentai[i].egzamino_pazymys;
-//            studentai[i].mediana = vidurkis;
-//        }
-//    }
-// }
-
 void studento_vardo_ir_pavardes_gavimas(Studentas &laikinas_studentas){
    cout << "Ivesite studento varda ir pavarde:" << endl;
    cin >> laikinas_studentas.vardas >> laikinas_studentas.pavarde;
@@ -421,41 +373,6 @@ void studento_egzamino_pazymio_gavimas(Studentas &laikinas_studentas){
     }
    laikinas_studentas.egzamino_pazymys = egzamino_pazymys;
 }
-
-// void studento_duomenu_skaitymas_is_failo(vector<Studentas>& studentai){
-//    string failo_pavadinimas;
-//    cout << "Iveskite norimo nuskaityti failo pavadinima: " << endl;
-//    cin >> failo_pavadinimas;
-
-// void studento_duomenu_is_failo_susirasymas(vector<Studentas> &studentai, string& failo_pavadinimas){
-//    auto pradzia = std::chrono::high_resolution_clock::now();
-
-//    ifstream failas(failo_pavadinimas);
-//    string antrastine_eilute;
-//    getline(failas, antrastine_eilute);
-
-//    string eilute;
-
-//    while(getline(failas, eilute)){
-//        Studentas laikinas_studentas;
-//        stringstream eil(eilute);
-//        eil >> laikinas_studentas.vardas >> laikinas_studentas.pavarde;
-//        int pazymys;
-//        while (eil >> pazymys){
-//            laikinas_studentas.pazymiai.push_back(pazymys);
-//        }
-//        laikinas_studentas.egzamino_pazymys = laikinas_studentas.pazymiai.back();
-//        laikinas_studentas.pazymiai.pop_back();
-//        studentai.push_back(laikinas_studentas);
-//    }
-//    operaciju_kiekis += 1;
-   
-//    auto pabaiga = std::chrono::high_resolution_clock::now();
-//    std::chrono::duration<double> trukme = pabaiga - pradzia;
-//    cout << endl << "duomenu is failo nuskaitymas uztruko: " << trukme.count() << " s" << endl;
-//    operaciju_laikai.push_back(trukme.count());
-//    failas.close();
-// }
 void tikrinimas_ar_pavyko_atidaryti_faila(string& failo_pavadinimas){
 
     ifstream failas(failo_pavadinimas);
