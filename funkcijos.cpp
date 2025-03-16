@@ -116,51 +116,6 @@ void konteinerio_ir_strategijos_pasirinkimas(){
     }
 
 }
-
-// void studentu_rusiavimas_i_kietus_ir_vargsus_ir_testai(){
-//     vector<Studentas> visi;
-//     vector<Studentas> vargsiukai;
-//     vector<Studentas> kietiakiai;
-
-//     studento_duomenu_skaitymas_is_failo(visi);
-//     studento_vidurkio_skaiciavimas(visi);
-
-//     auto rikiavimo_pradzia = std::chrono::high_resolution_clock::now();
-
-//     sort(visi.begin(), visi.end(), rikiuoti_pagal_vidurkis);
-
-//     auto rikiavimo_pabaiga = std::chrono::high_resolution_clock::now();
-//     std::chrono::duration<double> rikiavimo_trukme = rikiavimo_pabaiga - rikiavimo_pradzia;
-//     cout << endl << "Duomenu rikiavimas nuo didziausio vidurkio iki maziausio uztruko: " << rikiavimo_trukme.count() << " s" << endl;
-
-
-//     auto isskirstymo_pradzia = std::chrono::high_resolution_clock::now();
-
-//     for (int i = 0; i < (visi.size()); i++){
-//         if (visi[i].vidurkis >= 5){
-//             kietiakiai.push_back(visi[i]);
-//         } else{
-//             vargsiukai.push_back(visi[i]);
-//         }
-//     }
-//     auto isskirstymo_pabaiga = std::chrono::high_resolution_clock::now();
-//     std::chrono::duration<double> isskirstymo_trukme = isskirstymo_pabaiga - isskirstymo_pradzia;
-//     cout << endl << "Duomenu isskirstymas i kietiakus ir vargsiukus uztruko: " << isskirstymo_trukme.count() << " s" << endl;
-
-
-//     string failo_pavadinimo_pabaiga = ".txt";
-//     string failo_pavadinimas_kieti = "kietiakiai" + to_string(kietiakiai.size()) + failo_pavadinimo_pabaiga;
-//     string failo_pavadinimas_vargsai = "vargsiukai" + to_string(vargsiukai.size()) + failo_pavadinimo_pabaiga;
-
-//     studento_vidurkio_skaiciavimas(kietiakiai);
-//     studento_vidurkio_skaiciavimas(vargsiukai);
-//     studento_medianos_skaiciavimas(kietiakiai);
-//     studento_medianos_skaiciavimas(vargsiukai);
-//     duomenu_surasymas_i_faila(kietiakiai, failo_pavadinimas_kieti);
-//     duomenu_surasymas_i_faila(vargsiukai, failo_pavadinimas_vargsai);
-    
-// }
-
 void studento_duomenu_gavimas(vector<Studentas>& studentai){
     while(true){
         try{
