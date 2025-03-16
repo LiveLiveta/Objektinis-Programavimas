@@ -270,38 +270,32 @@ template <typename konteineris>
 void strategija_3(){
     
     konteineris visi;
-    konteineris vargsiukai;
-    konteineris kietiakiai;
-
     studento_duomenu_skaitymas_is_failo(visi);
     studento_vidurkio_skaiciavimas(visi);
 
     auto rikiavimo_pradzia = std::chrono::high_resolution_clock::now();
-
     if constexpr (is_same_v<konteineris, list<Studentas>>) {
         visi.sort(rikiuoti_pagal_vidurkis);
-    } else{
+    } else {
         sort(visi.begin(), visi.end(), rikiuoti_pagal_vidurkis);
     }
-
     auto rikiavimo_pabaiga = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> rikiavimo_trukme = rikiavimo_pabaiga - rikiavimo_pradzia;
-    cout << endl << "Duomenu rikiavimas nuo didziausio vidurkio iki maziausio uztruko: " << rikiavimo_trukme.count() << " s" << endl;
+    cout << "\nDuomenu rikiavimas nuo didziausio vidurkio iki maziausio uztruko: " << rikiavimo_trukme.count() << " s" << endl;
 
     auto isskirstymo_pradzia = std::chrono::high_resolution_clock::now();
-
-    for (auto it = visi.begin(); it != visi.end(); ++it) {
-        if (it->vidurkis >= 5) {
-            kietiakiai.push_back(*it);
-        } else {
-            vargsiukai.push_back(*it); 
-        }
-    }
     
+    // Partitioning students into two groups using stable_partition
+    auto it = stable_partition(visi.begin(), visi.end(), [](const Studentas& s) {
+        return s.vidurkis >= 5;
+    });
+    
+    konteineris kietiakiai(visi.begin(), it);
+    konteineris vargsiukai(it, visi.end());
+
     auto isskirstymo_pabaiga = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> isskirstymo_trukme = isskirstymo_pabaiga - isskirstymo_pradzia;
-    cout << endl << "Duomenu isskirstymas i kietiakus ir vargsiukus uztruko: " << isskirstymo_trukme.count() << " s" << endl;
-
+    cout << "\nDuomenu isskirstymas i kietiakus ir vargsiukus uztruko: " << isskirstymo_trukme.count() << " s" << endl;
 
     string failo_pavadinimo_pabaiga = ".txt";
     string failo_pavadinimas_kieti = "kietiakiai" + to_string(kietiakiai.size()) + failo_pavadinimo_pabaiga;
@@ -312,7 +306,7 @@ void strategija_3(){
     studento_medianos_skaiciavimas(kietiakiai);
     studento_medianos_skaiciavimas(vargsiukai);
     duomenu_surasymas_i_faila(kietiakiai, failo_pavadinimas_kieti);
-    duomenu_surasymas_i_faila(vargsiukai, failo_pavadinimas_vargsai);   
+    duomenu_surasymas_i_faila(vargsiukai, failo_pavadinimas_vargsai);
 }
 
 #endif
