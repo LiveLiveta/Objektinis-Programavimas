@@ -330,40 +330,6 @@ void studento_egzamino_pazymio_gavimas(Studentas &laikinas_studentas){
    laikinas_studentas.egzamino_pazymys = egzamino_pazymys;
 }
 
-// void studento_duomenu_skaitymas_is_failo(vector<Studentas>& studentai){
-//    string failo_pavadinimas;
-//    cout << "Iveskite norimo nuskaityti failo pavadinima: " << endl;
-//    cin >> failo_pavadinimas;
-
-// void studento_duomenu_is_failo_susirasymas(vector<Studentas> &studentai, string& failo_pavadinimas){
-//    auto pradzia = std::chrono::high_resolution_clock::now();
-
-//    ifstream failas(failo_pavadinimas);
-//    string antrastine_eilute;
-//    getline(failas, antrastine_eilute);
-
-//    string eilute;
-
-//    while(getline(failas, eilute)){
-//        Studentas laikinas_studentas;
-//        stringstream eil(eilute);
-//        eil >> laikinas_studentas.vardas >> laikinas_studentas.pavarde;
-//        int pazymys;
-//        while (eil >> pazymys){
-//            laikinas_studentas.pazymiai.push_back(pazymys);
-//        }
-//        laikinas_studentas.egzamino_pazymys = laikinas_studentas.pazymiai.back();
-//        laikinas_studentas.pazymiai.pop_back();
-//        studentai.push_back(laikinas_studentas);
-//    }
-//    operaciju_kiekis += 1;
-   
-//    auto pabaiga = std::chrono::high_resolution_clock::now();
-//    std::chrono::duration<double> trukme = pabaiga - pradzia;
-//    cout << endl << "duomenu is failo nuskaitymas uztruko: " << trukme.count() << " s" << endl;
-//    operaciju_laikai.push_back(trukme.count());
-//    failas.close();
-// }
 void tikrinimas_ar_pavyko_atidaryti_faila(string& failo_pavadinimas){
 
     ifstream failas(failo_pavadinimas);
