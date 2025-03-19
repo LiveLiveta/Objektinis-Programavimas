@@ -288,16 +288,6 @@ bool baigiasi_su_txt(string failo_pavadinimas){
    return false;
 }
 
-// void duomenu_surasymas_i_faila(vector<Studentas> studentai, string failo_pavadinimas){
-//     ofstream failas(failo_pavadinimas);
-//     failas << setw(18) << left << "Vardas" << setw(18) << left << "Pavarde" << setw(20) << left << "Galutinis (Vid.)" << setw(20) << left << "Galutinis (Med.)" <<endl;
-//     failas << "--------------------------------------------------------------" << endl;
-//     for (int i = 0; i < studentai.size(); i ++){
-//         failas << setw(18) << left << studentai[i].vardas << setw(18) << left << studentai[i].pavarde << setw(20) << left << fixed << setprecision(2) << studentai[i].vidurkis << setw(20) << studentai[i].mediana << endl;
-//         }
-//     failas.close(); 
-// }
-
 // void studento_vidurkio_skaiciavimas(vector<Studentas> &studentai){
 
 //    for (int i = 0; i < studentai.size(); i++){
