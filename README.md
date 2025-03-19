@@ -106,3 +106,29 @@
 |100000|0.329087 s|0.225474 s|0.0585586 s|
 |1000000|3.09246 s|2.46338 s|0.544096 s|
 |10000000|32.5397 s|31.3247 s|8.50725 s|
+
+# Testu isvados
+
+## Pastebejimai 
+- **Skaitymo greitis** visoms duomenu strukturoms (`vector`, `list`, `deque`) yra panasus.
+- **Rikiavimas**:
+  - **`list` yra greiciausias**, ypac su dideliais duomenu kiekiais.
+  - **`vector` yra vidutinis**.
+  - **`deque` yra leciausias**, ypac su **10,000,000 studentu**.
+- **Skirstymas**:
+  - **`vector` yra greiciausias** del efektyvaus atminties isdestymo.
+  - **`list` yra leciausias** del nuoseklios prieigos.
+  - **`deque` siek tiek atsilieka nuo `vector`**, ypac su dideliais duomenu kiekiais.
+
+## Duomenu strukturos pasirinkimas
+| **Operacija**   | **Geriausia Struktūra** | **Priežastis** |
+|----------------|------------------|--------------------------------------|
+| **Skaitymas**  | Bet kuri         | Nedidelis skirtumas |
+| **Rikiavimas** | **`list`**       | Greičiausias su dideliais duomenimis |
+| **Skirstymas** | **`vector`**     | Efektyviausias dėl atminties išdėstymo |
+| **Bendras pasirinkimas** | **Priklauso nuo prioritetų** | `list` geriausia rikiavimui, `vector` geriausia skirstymui |
+
+## Rekomendacijos
+- **Naudoti `list`, jei prioritetas - rikiavimo greitis**.
+- **Naudoti `vector`, jei prioritetas - skirstymo našumas**.
+- **Vengti `deque` rikiavimui**, nes jis leciausias.
