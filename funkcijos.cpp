@@ -288,44 +288,6 @@ bool baigiasi_su_txt(string failo_pavadinimas){
    return false;
 }
 
-// void studento_vidurkio_skaiciavimas(vector<Studentas> &studentai){
-
-//    for (int i = 0; i < studentai.size(); i++){
-//        int pazymiu_suma = 0;
-//        int pazymiu_kiekis = studentai[i].pazymiai.size();
-   
-//        if (pazymiu_kiekis == 0){
-//            studentai[i].vidurkis = 0.6 * studentai[i].egzamino_pazymys;
-//        } else{ 
-//            for (int j = 0; j < pazymiu_kiekis; j++){
-//                pazymiu_suma += studentai[i].pazymiai[j];
-//            }
-//            double pazymiu_vidurkis = pazymiu_suma * 1.0 / pazymiu_kiekis;
-//            double vidurkis = 0.4 * pazymiu_vidurkis + 0.6 * studentai[i].egzamino_pazymys;
-//            studentai[i].vidurkis = vidurkis;
-//        }
-//    }
-// }
-// void studento_medianos_skaiciavimas(vector<Studentas> &studentai){
-//    for (int i = 0; i < studentai.size(); i++){
-//        int pazymiu_kiekis = studentai[i].pazymiai.size();
-//        if (pazymiu_kiekis == 0){
-//            studentai[i].mediana =  0.6 * studentai[i].egzamino_pazymys;
-//        }else{ 
-//            sort(studentai[i].pazymiai.begin(), studentai[i].pazymiai.end());
-//            double mediana;
-//            if(pazymiu_kiekis%2 == 0){
-//                mediana = (studentai[i].pazymiai[pazymiu_kiekis/2] + studentai[i].pazymiai[pazymiu_kiekis/2 -1]) / 2.0;
-//            } else{
-//                mediana = (studentai[i].pazymiai[pazymiu_kiekis/2]);
-//            }
-       
-//            double vidurkis = 0.4 * mediana + 0.6 * studentai[i].egzamino_pazymys;
-//            studentai[i].mediana = vidurkis;
-//        }
-//    }
-// }
-
 void studento_vardo_ir_pavardes_gavimas(Studentas &laikinas_studentas){
    cout << "Ivesite studento varda ir pavarde:" << endl;
    cin >> laikinas_studentas.vardas >> laikinas_studentas.pavarde;
