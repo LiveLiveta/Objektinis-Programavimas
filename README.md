@@ -1,39 +1,139 @@
-Failo generavimas:
+# Projekto paleidimo instrukcija
+1. Naudodami git, galite klonuoti si projekta su komanda `git clone https://github.com/LiveLiveta/Objektinis-Programavimas.git`
+2. Sukurkite projekto .exe faila, paleisdami `make` komanda projekto direktorijoje
+3. Paleiskite projekta, paleisdami `./vektoriai` komanda
 
-|                       |            |            |            |            |            |                         |
-| --------------------- | ---------- | ---------- | ---------- | ---------- | ---------- | ----------------------- |
-| Studentai1000.txt     | 0.0551806, | 0.0520758, | 0.0521993, | 0.0526268, | 0.0524296, | (Vidurkis: 0.05290242s) |
-| Studentai10000.txt    | 0.398693,  | 0.423109,  | 0.428616,  | 0.439487,  | 0.442914,  | (Vidurkis: 0.4265638s)  |
-| Studentai100000.txt   | 3.60526,   | 2.33776,   | 3.4278,    | 3.66018,   | 2.227,     | (Vidurkis: 3.05159s)    |
-| Studentai1000000.txt  | 11.5445,   | 12.6683,   | 8.64496,   | 7.31946,   | 8.0133,    | (Vidurkis: 9.638104s)   |
-| Studentai10000000.txt | 65.1215,   | 68.3736,   | 68.1791,   | 65.7343,   | 65.9255,   | (Vidurkis: 66.6668s)    |
+# Testai
 
-Duomenu nuskaitymas:
+## Strategija 1
 
-|                       |            |            |           |            |            |                         |
-| --------------------- | ---------- | ---------- | --------- | ---------- | ---------- | ----------------------- |
-| Studentai1000.txt     | 0.0134612, | 0.0137621, | 0.012454, | 0.0121832, | 0.0163252, | (Vidurkis: 0.01363714s) |
-| Studentai10000.txt    | 0.101479,  | 0.110089,  | 0.120788, | 0.115293,  | 0.105232,  | (Vidurkis: 0.1105762s)  |
-| Studentai100000.txt   | 0.499984,  | 0.421185,  | 0.42543,  | 0.529829,  | 0.523384,  | (Vidurkis: 0.47996239s) |
-| Studentai1000000.txt  | 4.10587,   | 4.20922,   | 3.57864,  | 3.72294,   | 4.15967,   | (Vidurkis: 3.955268s)   |
-| Studentai10000000.txt | 36.2768,   | 36.8431,   | 40.8395,  | 38.829,    | 43.6801,   | (Vidurkis: 39.2937s)    |
+### Vector
 
-Duomenu skirstymas:
+||||||
+|-|-|-|-|-|
+|Studentu kiekis|Skaitymas|Rikiavimas|Skirstymas|
+|1000|0.0067999 s|0.000899 s|0.0004967 s|
+|10000|0.0451155 s|0.0144912 s|0.0055211 s|
+|100000|0.379105 s|0.166723 s|0.0503665 s|
+|1000000|3.25661 s|1.66952 s|0.473 s|
+|10000000|33.9667 s|22.6545 s|6.74625 s|
 
-|                       |            |            |            |            |            |                         |
-| --------------------- | ---------- | ---------- | ---------- | ---------- | ---------- | ----------------------- |
-| Studentai1000.txt     | 0.0011616, | 0.0014396, | 0.0014901, | 0.0017875, | 0.0019067, | (Vidurkis: 0.0015571s)  |
-| Studentai10000.txt    | 0.0060523, | 0.0120223, | 0.0108369, | 0.0091556, | 0.0107811, | (Vidurkis: 0.00976964s) |
-| Studentai100000.txt   | 0.0492851, | 0.0464607, | 0.0432246, | 0.0447692, | 0.0471684, | (Vidurkis: 0.9601192s)  |
-| Studentai1000000.txt  | 0.474759,  | 0.581854,  | 0.418548,  | 0.484383,  | 0.46885,   | (Vidurkis: 0.48567879s) |
-| Studentai10000000.txt | 4.33367,   | 4.64838,   | 6.40595,   | 4.756256,  | 4.98089,   | (Vidurkis: 5.0250292s)  |
+### List
 
-Duomenu surasymas:
+||||||
+|-|-|-|-|-|
+|Studentu kiekis|Skaitymas|Rikiavimas|Skirstymas|
+|1000|0.0034584 s|0.0003085 s|0.0006098 s|
+|10000|0.0362613 s|0.0045102 s|0.0055924 s|
+|100000|0.394083 s|0.0845375 s|0.0645829 s|
+|1000000|3.40987 s|0.957042 s|0.657971 s|
+|10000000|34.4712 s|14.5161 s|8.5884 s|
 
-|                       |            |            |            |            |            |                         |
-| --------------------- | ---------- | ---------- | ---------- | ---------- | ---------- | ----------------------- |
-| Studentai1000.txt     | 0.0687331, | 0.0549131, | 0.0577068, | 0.0532951, | 0.0590142, | (Vidurkis: 0.05873246s) |
-| Studentai10000.txt    | 0.175422,  | 0.333218,  | 0.348656,  | 0.141726,  | 0.297062,  | (Vidurkis: 0.2592168s)  |
-| Studentai100000.txt   | 1.55138,   | 1.49212,   | 1.0665,    | 0.993481,  | 1.21546,   | (Vidurkis: 1.2637882s)  |
-| Studentai1000000.txt  | 9.88848,   | 9.08169,   | 9.03896,   | 8.68279,   | 9.14537,   | (Vidurkis: 9.167458s)   |
-| Studentai10000000.txt | 76.9355,   | 77.5106,   | 78.2528,   | 74.3731,   | 69.8596,   | (Vidurkis: 75.38632s)   |
+### Deque
+
+||||||
+|-|-|-|-|-|
+|Studentu kiekis|Skaitymas|Rikiavimas|Skirstymas|
+|1000|0.0059507 s|0.0014088 s|0.0003574 s|
+|10000|0.0339149 s|0.0182839 s|0.0046314 s|
+|100000|0.338572 s|0.216443 s|0.0498382 s|
+|1000000|3.3342 s|2.4227 s|0.44359 s|
+|10000000|33.63 s|31.1429 s|6.70689 s|
+
+
+## Strategija 2
+
+### Vector
+
+||||||
+|-|-|-|-|-|
+|Studentu kiekis|Skaitymas|Rikiavimas|Skirstymas|
+|1000|0.0031301 s|0.000988 s|0.0003568 s|
+|10000|0.0459206 s|0.0136961 s|0.0037891 s|
+|100000|0.380268 s|0.173013 s|0.0339479 s|
+|1000000|3.24247 s|1.83449 s|0.332318 s|
+|10000000|34.2698 s|23.9199 s|5.06063 s|
+
+### List
+
+||||||
+|-|-|-|-|-|
+|Studentu kiekis|Skaitymas|Rikiavimas|Skirstymas|
+|1000|0.0069925 s|0.000433 s|0.0008004 s|
+|10000|0.0360031 s|0.0043048 s|0.0043097 s|
+|100000|0.346095 s|0.086658 s|0.072307 s|
+|1000000|3.32119 s|0.968775 s|0.708363 s|
+|10000000|34.6489 s|14.5726 s|9.56166 s|
+
+### Deque
+
+||||||
+|-|-|-|-|-|
+|Studentu kiekis|Skaitymas|Rikiavimas|Skirstymas|
+|1000|0.0030909 s|0.0014686 s|0.0004318 s|
+|10000|0.0379952 s|0.0172257 s|0.0039548 s|
+|100000|0.337375 s|0.216485 s|0.0437521 s|
+|1000000|3.17983 s|2.38498 s|0.427251 s|
+|10000000|33.7042 s|32.6965 s|6.71293 s|
+
+
+## Strategija 3
+
+### Vector
+
+||||||
+|-|-|-|-|-|
+|Studentu kiekis|Skaitymas|Rikiavimas|Skirstymas|
+|1000|0.0064402 s|0.001332 s|0.0005856 s|
+|10000|0.0371594 s|0.012709 s|0.0044919 s|
+|100000|0.357436 s|0.175865 s|0.0442798 s|
+|1000000|3.13975 s|1.8639 s|0.437462 s|
+|10000000|32.9613 s|24.1863 s|6.77008 s|
+
+### List
+
+||||||
+|-|-|-|-|-|
+|Studentu kiekis|Skaitymas|Rikiavimas|Skirstymas|
+|1000|0.0031854 s|0.0004639 s|0.0010707 s|
+|10000|0.0360607 s|0.0043548 s|0.0097693 s|
+|100000|0.3659 s|0.0708206 s|0.094393 s|
+|1000000|3.46133 s|0.979156 s|1.03381 s|
+|10000000|34.2461 s|14.9582 s|12.695 s|
+
+### Deque
+
+||||||
+|-|-|-|-|-|
+|Studentu kiekis|Skaitymas|Rikiavimas|Skirstymas|
+|1000|0.0068138 s|0.0016586 s|0.000408 s|
+|10000|0.0394424 s|0.0174686 s|0.0055875 s|
+|100000|0.329087 s|0.225474 s|0.0585586 s|
+|1000000|3.09246 s|2.46338 s|0.544096 s|
+|10000000|32.5397 s|31.3247 s|8.50725 s|
+
+# Testu isvados
+
+## Pastebejimai 
+- **Skaitymo greitis** visoms duomenu strukturoms (`vector`, `list`, `deque`) yra panasus.
+- **Rikiavimas**:
+  - **`list` yra greiciausias**, ypac su dideliais duomenu kiekiais.
+  - **`vector` yra vidutinis**.
+  - **`deque` yra leciausias**, ypac su **10,000,000 studentu**.
+- **Skirstymas**:
+  - **`vector` yra greiciausias** del efektyvaus atminties isdestymo.
+  - **`list` yra leciausias** del nuoseklios prieigos.
+  - **`deque` siek tiek atsilieka nuo `vector`**, ypac su dideliais duomenu kiekiais.
+
+## Duomenu strukturos pasirinkimas
+| **Operacija**   | **Geriausia Struktūra** | **Priežastis** |
+|----------------|------------------|--------------------------------------|
+| **Skaitymas**  | Bet kuri         | Nedidelis skirtumas |
+| **Rikiavimas** | **`list`**       | Greičiausias su dideliais duomenimis |
+| **Skirstymas** | **`vector`**     | Efektyviausias dėl atminties išdėstymo |
+| **Bendras pasirinkimas** | **Priklauso nuo prioritetų** | `list` geriausia rikiavimui, `vector` geriausia skirstymui |
+
+## Rekomendacijos
+- **Naudoti `list`, jei prioritetas - rikiavimo greitis**.
+- **Naudoti `vector`, jei prioritetas - skirstymo našumas**.
+- **Vengti `deque` rikiavimui**, nes jis leciausias.

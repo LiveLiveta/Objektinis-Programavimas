@@ -233,14 +233,12 @@ void strategija_2(){
 
     auto isskirstymo_pradzia = std::chrono::high_resolution_clock::now();
 
-    for (auto it = visi.begin(); it != visi.end();) {
-        if (it->vidurkis < 5) {
-            vargsiukai.push_back(*it);
-            it = visi.erase(it);
-        }else{
-            ++it;
-        }
-    }
+    auto it = stable_partition(visi.begin(), visi.end(), [](const Studentas& s) {
+        return s.vidurkis >= 5;
+    });
+
+    vargsiukai.insert(vargsiukai.end(), it, visi.end());
+    visi.erase(it, visi.end());
     
     auto isskirstymo_pabaiga = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> isskirstymo_trukme = isskirstymo_pabaiga - isskirstymo_pradzia;
