@@ -211,6 +211,31 @@ void strategija_1(){
 }
 
 template <typename konteineris>
+void isrinkVargsiukus(konteineris& visi, konteineris& vargsiukai){
+    if constexpr (std::is_same_v<konteineris, std::list<Studentas>>) {
+        // Su list trinam iš priekio į galą
+        auto it = visi.begin();
+        while (it != visi.end()) {
+            if (it->vidurkis < 5) {
+                vargsiukai.push_back(*it);
+                it = visi.erase(it);
+            } else {
+                ++it;
+            }
+        }
+    } else {
+        // Su vector / deque – trinam iš galo į priekį, kad mažiau perstumdinėtų
+        for (auto it = visi.end(); it != visi.begin(); ) {
+            --it;
+            if (it->vidurkis < 5) {
+                vargsiukai.push_back(*it);
+                it = visi.erase(it);  // erase grąžina iteratorių į sekantį po ištrinto
+            }
+        }
+    }
+}
+
+template <typename konteineris>
 void strategija_2(){
     
     konteineris visi;
@@ -233,17 +258,18 @@ void strategija_2(){
 
     auto isskirstymo_pradzia = std::chrono::high_resolution_clock::now();
 
-    auto it = stable_partition(visi.begin(), visi.end(), [](const Studentas& s) {
-        return s.vidurkis >= 5;
-    });
-
-    vargsiukai.insert(vargsiukai.end(), it, visi.end());
-    visi.erase(it, visi.end());
+    isrinkVargsiukus(visi, vargsiukai);
     
     auto isskirstymo_pabaiga = std::chrono::high_resolution_clock::now();
+
+    if constexpr (is_same_v<konteineris, list<Studentas>>) {
+        vargsiukai.sort(rikiuoti_pagal_vidurkis);
+    } else{
+        sort(vargsiukai.begin(), vargsiukai.end(), rikiuoti_pagal_vidurkis);
+    }
+
     std::chrono::duration<double> isskirstymo_trukme = isskirstymo_pabaiga - isskirstymo_pradzia;
     cout << endl << "Duomenu isskirstymas i kietiakus ir vargsiukus uztruko: " << isskirstymo_trukme.count() << " s" << endl;
-
 
     string failo_pavadinimo_pabaiga = ".txt";
     string failo_pavadinimas_kieti = "kietiakiai" + to_string(visi.size()) + failo_pavadinimo_pabaiga;
